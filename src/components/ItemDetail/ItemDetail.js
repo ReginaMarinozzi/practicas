@@ -6,14 +6,17 @@ import { useState } from "react";
 
 const ItemDetail = ({item}) => {
 
-  const [cantidad, setCantidad] = useState (1)
+  const [cantidad, setCantidad] = useState (0)
+  
 
   const handleAgregar = () => {
-    console.log({
-      ...item,
+    const itemToCart = {
+      id: item.id,
+      nombre: item.nombre,
+      precio: item.precio,
       cantidad
-    })
-
+    }
+    console.log(itemToCart)
   }
 
 
@@ -27,7 +30,7 @@ const ItemDetail = ({item}) => {
        <ItemCount 
         max={item.stock}
         counter={cantidad}
-        setCouner={setCantidad}
+        setCantidad={setCantidad}
         handleAgregar={handleAgregar} />
     </Container>
   )

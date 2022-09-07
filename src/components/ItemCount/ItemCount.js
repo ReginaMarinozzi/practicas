@@ -3,18 +3,21 @@ import { Container } from "@mui/system";
 import Button from '@mui/material/button';
 import ButtonGroup from '@mui/material/ButtonGroup';
 
-const ItemCount = ({ max, counter, setCounter, handleAgregar }) => { 
+
+const ItemCount = ({ max, counter, setCantidad, handleAgregar }) => { 
+   
+
 
   const handleSumar = () => {
     if (counter < max) {
-      setCounter(counter + 1);
+      setCantidad(counter + 1);
     }
 
   };
 
   const handleRestar = () => {
     if (counter > 0) {
-      setCounter(counter - 1);
+      setCantidad(counter - 1);
     }
   };
 
