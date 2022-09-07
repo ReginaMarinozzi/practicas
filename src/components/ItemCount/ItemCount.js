@@ -1,14 +1,12 @@
-import { useState } from "react";
 import * as React from 'react';
 import { Container } from "@mui/system";
 import Button from '@mui/material/button';
 import ButtonGroup from '@mui/material/ButtonGroup';
 
-const ItemCount = ({ stock }) => {
-  const [counter, setCounter] = useState(0);
+const ItemCount = ({ max, counter, setCounter, handleAgregar }) => { 
 
   const handleSumar = () => {
-    if (counter < stock) {
+    if (counter < max) {
       setCounter(counter + 1);
     }
 
@@ -28,7 +26,7 @@ const ItemCount = ({ stock }) => {
       <Button>{counter}</Button>
       <Button variant="contained" onClick={handleSumar}>+</Button>
       </ButtonGroup>
-      <Button variant="contained" >Agregar al carrito</Button>
+      <Button variant="contained" onClick={handleAgregar}>Agregar al carrito</Button>
     </Container>
 
   );
