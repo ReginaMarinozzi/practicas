@@ -4,7 +4,6 @@ import ItemList from "../ItemList/ItemList";
 import { useParams } from "react-router-dom";
 import Container from '@mui/material/Container';
 
-
 const ItemListContainer = () => {
     const [productos, setProductos] = useState([]);
     const [loading, setLoading] = useState(true)
