@@ -1,22 +1,22 @@
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import { Box } from '@mui/system';
-import { useContext } from 'react';
+import { Avatar } from '@mui/material';
 import { Link } from 'react-router-dom';
-import { CartContext } from '../../context/CartContext';
+import { useCartContext } from '../../context/CartContext';
+import {Typography } from '@mui/material';
 
 const ShoppingCart = () => {
 
-    const { cartQuantity } = useContext(CartContext)
+    const { cartQuantity } = useCartContext()
 
     return (
-       <Box component={Link} to='/cart'>
-         <ShoppingCartIcon sx={{ display: { xs: 'flex', md: 'flex' }, mx: 1, color: '#FFFFFF' }}>
-            <span> {cartQuantity()} </span>
-        </ShoppingCartIcon>
-        </Box>
+        <Avatar variant='square' sx={{padding: 2, display: 'flex', alignItems: 'center'}} component={Link} to='/cart'>
+            <ShoppingCartIcon sx={{padding: 1, color: '#FFFFFF' }}></ShoppingCartIcon>
+            <Typography
+             sx={{padding: 1, color: '#FFFFFF' }}>
+            {cartQuantity()} 
+            </Typography>
+        </Avatar>
     );
-       
-       
-}
+ }
 
 export default ShoppingCart
