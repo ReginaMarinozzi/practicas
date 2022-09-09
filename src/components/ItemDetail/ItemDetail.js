@@ -1,15 +1,14 @@
-import React, { useContext } from 'react';
 import ItemCount from '../ItemCount/ItemCount';
 import { Container } from '@mui/system';
 import { useState } from "react";
-import { CartContext } from '../../context/CartContext';
+import {  useCartContext } from '../../context/CartContext';
 import { Link } from 'react-router-dom';
 import { Button } from '@mui/material';
 
 const ItemDetail = ({ item }) => {
 
-  const { cart, addToCart, isInCart } = useContext(CartContext)
-  console.log(cart)
+  const { addToCart, isInCart } =  useCartContext()
+  
 
   const [cantidad, setCantidad] = useState(0)
 
@@ -34,13 +33,13 @@ const ItemDetail = ({ item }) => {
 
 
       {isInCart(item.stock)
-        ? <Button variant="contained" component={Link} to='/cart'>Terminar mi compra</Button>
+        ? <Button variant="contained" component={Link} to='/cart'>Terminar mi compra</Button> 
         : <ItemCount
-          max={item.stock}
-          counter={cantidad}
-          setCantidad={setCantidad}
-          handleAgregar={handleAgregar} />}
-
+        max={item.stock}
+        counter={cantidad}
+        setCantidad={setCantidad}
+        handleAgregar={handleAgregar} />
+        }
     </Container>
   )
 }
