@@ -2,11 +2,12 @@ import { Button, Typography } from '@mui/material'
 import { Container } from '@mui/system'
 import React, { useContext } from 'react'
 import { CartContext } from '../../context/CartContext'
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const Cart = () => {
 
 
-    const { cart, cartTotal } = useContext(CartContext)
+    const { cart, cartTotal, emptyCart, removeItem } = useContext(CartContext)
 
 
     return (
@@ -20,13 +21,17 @@ const Cart = () => {
                     <h2>{item.nombre} </h2>
                     <p>Precio $ {item.precio} </p>
                     <p>{item.cantidad} </p>
+                    <Button variant='contained' onClick={ ()=> removeItem(item.id)}>
+                        <DeleteIcon />
+                    </Button>
+                    <DeleteIcon />
                 </Container>
             ))}
 
             <Typography variant="h4">
                 Total ${cartTotal()}
             </Typography>
-            <Button variant='contained'>
+            <Button variant='contained' onClick={emptyCart}>
                 Vaciar carrito
             </Button>
 
