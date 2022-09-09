@@ -197,7 +197,7 @@ const ResponsiveAppBar = () => {
                         />
                     </Search>
 
-                    <ShoppingCart />
+                    <ShoppingCart sx={{ color: '#FFFFFF' }}/>
 
                     <Box sx={{ flexGrow: 0 }}>
                         <Tooltip title="Open settings">
