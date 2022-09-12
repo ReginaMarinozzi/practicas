@@ -1,4 +1,5 @@
 
+
 const stock = [
 
     {
@@ -7,7 +8,7 @@ const stock = [
         nombre: "Vital",
         descripcion: "Después de 7 días, la piel se nota radiante y joven. Después de utilizar un frasco, la piel se recupera más rápidamente y todos los signos clave de la juventud mejoran visiblemente.",
         precio: 5499,
-        stock: 0,
+        stock: 5,
         img: "https://i.ibb.co/fkL6cJb/accoje.jpg",
         categoria: "skincare"
     },
@@ -35,7 +36,7 @@ const stock = [
         id: 4,
         marca: "DEWYTREE",
         nombre: "The Clean Lab Sea Salt",
-        descripcion: "Una sola dosis de esta loción refrescante se transforma en una espuma aérea y untuosa. Altamente concentrada en extracto de hojas de Té blanco de origen natural, perfecciona el desmaquillado, limpia y purifica la piel en profundidad mientras deja sobre ella una sensación refrescante. La piel queda libre de impurezas al instante, perfectamente limpia y aclarada. Tonificada y más fresca, la piel está llena de vida, bella de forma natural",
+        descripcion: "Una sola dosis de esta loción refrescante se transforma en una espuma aérea y untuosa. Altamente concentrada en extracto de hojas de Té blanco de origen natural, perfecciona el desmaquillado, limpia y purifica la piel en profundidad mientras deja sobre ella una sensación refrescante. La piel queda libre de impurezas al instante, perfectamente limpia y aclarada. Tonificada y más fresca, la piel está llena de vida, bella de forma natural.",
         precio: 2899,
         stock: 60,
         img: "https://i.ibb.co/9Ty7WG5/dewytree.jpg",
@@ -512,7 +513,7 @@ const stock = [
         categoria: "skincare"
     },
     {
-        id: 53,
+        id: 52,
         nombre: "Chance",
         marca: "Chanel",
         descripcion: "CHANCE EAU TENDRE, EAU DE TOILETTE VAPORIZADOR",
@@ -523,7 +524,7 @@ const stock = [
 
     },
     {
-        id: 54,
+        id: 53,
         nombre: "Chloé",
         marca: "Chloé",
         descripcion: "CHLOE ROSE TANGERINE EDT",
@@ -534,7 +535,7 @@ const stock = [
 
     },
     {
-        id: 55,
+        id: 54,
         nombre: "Le Parfum",
         marca: "Elie Saab",
         descripcion: "EAU DE PARFUM FEMME",
@@ -545,18 +546,18 @@ const stock = [
 
     },
     {
-        id: 56,
+        id: 55,
         nombre: "Fleur Monoi",
         marca: "Urban Outfitters",
         descripcion: "EAU DE PARFUM FEMME",
         precio: 20500,
-        stock: 0,
+        stock: 9,
         img: "https://i.ibb.co/XZ7vjGj/fleurmonoi.jpg",
         categoria: "fragance"
 
     },
     {
-        id: 57,
+        id: 56,
         nombre: "Songes",
         marca: "Annick Goutal",
         descripcion: "EAU DE PARFUM FEMME",
@@ -567,7 +568,7 @@ const stock = [
 
     },
     {
-        id: 58,
+        id: 57,
         nombre: "YSL Libre Intense",
         marca: "YSL",
         descripcion: "EAU DE PARFUM FEMME",
@@ -591,3 +592,4 @@ const stock = [
 ]
 
 export default stock
+

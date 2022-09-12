@@ -1,46 +1,60 @@
 import ItemCount from '../ItemCount/ItemCount';
-import { Container } from '@mui/system';
+import { Box } from '@mui/system';
 import { useState } from "react";
-import {  useCartContext } from '../../context/CartContext';
+import { useCartContext } from '../../context/CartContext';
 import { Link } from 'react-router-dom';
-import { Button } from '@mui/material';
+import { Button, CardMedia, Card, CardContent, CardActions } from '@mui/material';
+import Typography from '@mui/material/Typography';
+
 
 const ItemDetail = ({ item }) => {
 
-  const { addToCart, isInCart } =  useCartContext()
-  
+  const { addToCart, isInCart } = useCartContext()
 
-  const [cantidad, setCantidad] = useState(0)
+  const [cantidad, setCantidad] = useState(1)
 
   const handleAgregar = () => {
     const itemToCart = {
       id: item.id,
       nombre: item.nombre,
       precio: item.precio,
+      img: item.img,
       cantidad
     }
+
     addToCart(itemToCart)
   }
 
 
   return (
 
-    <Container maxWidth='md' sx={{ marginTop: 10, padding: 10, display: 'flex', flexFlow: 'column', justifyContent: 'center' }} >
-      <img src={item.img} alt={item.descripcion} />
-      <h3>{item.nombre} </h3>
-      <span>{item.descripcion} </span>
-      <span>Precio $ {item.precio}</span>
+    <Card sx={{ marginTop: 12, marginBottom: 15, padding: 10, display: 'flex', justifyContent: 'center' }} >
 
+      <CardMedia component="img" image={item.img} alt={item.descripcion} sx={{ borderRadius: `10px` }} />
 
-      {isInCart(item.stock)
-        ? <Button variant="contained" component={Link} to='/cart'>Terminar mi compra</Button> 
-        : <ItemCount
-        max={item.stock}
-        counter={cantidad}
-        setCantidad={setCantidad}
-        handleAgregar={handleAgregar} />
-        }
-    </Container>
+      <Box sx={{ marginTop: 3, padding: 5, display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
+
+        <CardContent align="justify">
+          <Typography align="center" variant="h4" component='h4' >{item.nombre}</Typography>
+          <Typography variant="body1" component='p' align="justify">{item.descripcion}</Typography>
+          <Typography variant="h5" component='h5' align="center" sx={{ padding: 2 }}>Precio $ {item.precio}</Typography>
+        </CardContent>
+{} 
+
+        <CardActions>
+          {isInCart(item.id)
+            ? <Button variant="contained" size='large' color='success' component={Link} to='/cart'>Terminar mi compra</Button>
+            : <ItemCount
+              max={item.stock}
+              counter={cantidad}
+              setCantidad={setCantidad}
+              handleAgregar={handleAgregar} />
+          }
+        </CardActions>
+
+      </Box>
+
+    </Card>
   )
 }
 

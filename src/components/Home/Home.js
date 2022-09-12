@@ -1,4 +1,4 @@
-import { Container } from '@mui/system'
+import {Box} from '@mui/material'
 import React from 'react'
 import Header from '../Header/Header'
 import ItemListContainer from '../ItemListContainer/ItemListContainer'
@@ -6,13 +6,11 @@ import ItemListContainer from '../ItemListContainer/ItemListContainer'
 
 const Home = () => {
   return (
-    <Container>
+    <Box sx={{ width: '100%', height: 'auto'}}>
          <Header/>
          <ItemListContainer/>
-    </Container>
+    </Box>
 
-   
-  
   )
 }
 

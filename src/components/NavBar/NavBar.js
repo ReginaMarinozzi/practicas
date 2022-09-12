@@ -96,10 +96,10 @@ const ResponsiveAppBar = () => {
     };
 
     return (
-        <AppBar position="fixed" sx={{ bgcolor: 'pink'}}>
+        <AppBar position="fixed" sx={{ bgcolor: '#e1aac1' }}>
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
-                    <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+
                     <Typography
                         component={Link} to='/'
                         variant="h6"
@@ -107,7 +107,6 @@ const ResponsiveAppBar = () => {
                         sx={{
                             mr: 2,
                             display: { xs: 'none', md: 'flex' },
-                            fontFamily: 'monospace',
                             fontWeight: 700,
                             letterSpacing: '.3rem',
                             color: 'inherit',
@@ -197,7 +196,7 @@ const ResponsiveAppBar = () => {
                         />
                     </Search>
 
-                    <ShoppingCart sx={{ color: '#FFFFFF' }}/>
+                    <ShoppingCart />
 
                     <Box sx={{ flexGrow: 0 }}>
                         <Tooltip title="Open settings">

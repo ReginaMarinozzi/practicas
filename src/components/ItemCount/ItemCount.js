@@ -1,7 +1,6 @@
 import * as React from 'react';
-import { Container } from "@mui/system";
 import Button from '@mui/material/Button';
-import ButtonGroup from '@mui/material/ButtonGroup';
+import { Box } from '@mui/material';
 
 
 const ItemCount = ({ max, counter, setCantidad, handleAgregar }) => { 
@@ -16,21 +15,21 @@ const ItemCount = ({ max, counter, setCantidad, handleAgregar }) => {
   };
 
   const handleRestar = () => {
-    if (counter > 0) {
+    if (counter > 1) {
       setCantidad(counter - 1);
     }
   };
 
   return (
 
-    <Container sx={{ padding: 1, display: 'flex', justifyContent: 'center', flexDirection: 'column'}}  >
-      <ButtonGroup variant="outlined" aria-label="outlined button group" sx={{ padding: 1, display: 'flex', justifyContent: 'center' }}>
-      <Button variant="contained" onClick={handleRestar}>-</Button>
-      <Button>{counter}</Button>
-      <Button variant="contained" onClick={handleSumar}>+</Button>
-      </ButtonGroup>
-      <Button variant="contained" onClick={handleAgregar}>Agregar al carrito</Button>
-    </Container>
+    <Box sx={{ padding: 1, display: 'flex', justifyContent: 'center', flexDirection: 'column'}}  >
+      <Box sx={{ padding: 1, display: 'flex', justifyContent: 'center' }}>
+      <Button variant="contained"  sx={{ padding: `5x`}} onClick={handleRestar}>-</Button>
+      <Box>{counter}</Box>
+      <Button variant="contained"  sx={{ padding: `5px`}} onClick={handleSumar}>+</Button>
+      </Box>
+      <Button variant="contained" size='large' onClick={handleAgregar}>Agregar al carrito</Button>
+    </Box>
 
   );
 };

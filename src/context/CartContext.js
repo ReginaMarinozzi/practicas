@@ -17,7 +17,7 @@ export const CartProvider = ({children}) => {
     }
 
     const cartQuantity = () => {
-        return cart.reduce((acc, item) => acc + item.cantdad, 0)
+        return cart.reduce((acc, item) => acc + item.cantidad, 0)
     }
 
     const cartTotal = () => {
@@ -51,6 +51,6 @@ export const CartProvider = ({children}) => {
 
 }
 
-export const useCartContext = () => {
+export const useCartContext  = () => {
     return useContext(CartContext)
 }

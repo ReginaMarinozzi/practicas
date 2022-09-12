@@ -8,29 +8,25 @@ import Cart from './components/Cart/Cart';
 
 function App() {
 
-  
+
   return (
     <CartProvider>
-   
-    <BrowserRouter>
 
-    <ResponsiveAppBar/>
+      <BrowserRouter>
 
-      <Routes>
+        <ResponsiveAppBar /> 
 
-      <Route path='/' element={  <Home/> }/>
-      <Route path='/item/:itemId' element={ <ItemDetailContainer/> } />
-      <Route path='/cart' element={ <Cart/> } />
-      <Route path='/productos/:categoryId' element={ <ItemListContainer/> } />
-      <Route path='/productos/:categoryId' element={ <ItemListContainer/> } />
-      <Route path='/productos/:categoryId' element={ <ItemListContainer/> } />
-      <Route path='*' element={ <Navigate to="/" /> } />
-    
-      </Routes>
+        <Routes>
 
-      {/* <Footer> */}
+          <Route path='/' element={<Home />} />
+          <Route path='/item/:itemId' element={<ItemDetailContainer />} />
+          <Route path='/cart' element={<Cart />} />
+          <Route path='/productos/:categoryId' element={<ItemListContainer />} />
+          <Route path='*' element={<Navigate to="/" />} />
 
-    </BrowserRouter>
+        </Routes>
+
+      </BrowserRouter>
 
     </CartProvider>
 
