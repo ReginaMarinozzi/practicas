@@ -15,7 +15,7 @@ const ItemCount = ({ max, counter, setCantidad, handleAgregar }) => {
   };
 
   const handleRestar = () => {
-    if (counter > 1) {
+    if (counter > 0) {
       setCantidad(counter - 1);
     }
   };
@@ -28,7 +28,7 @@ const ItemCount = ({ max, counter, setCantidad, handleAgregar }) => {
       <Box>{counter}</Box>
       <Button variant="contained"  sx={{ padding: `5px`}} onClick={handleSumar}>+</Button>
       </Box>
-      <Button variant="contained" size='large' onClick={handleAgregar}>Agregar al carrito</Button>
+      <Button variant="contained" size='large' disabled={counter === 0} onClick={handleAgregar}>Agregar al carrito</Button>
     </Box>
 
   );

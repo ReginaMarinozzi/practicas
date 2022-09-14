@@ -24,12 +24,15 @@ const Item = ({ producto }) => {
                         {producto.nombre}
                     </Typography>
                     <Box >
-                        <Typography variant="h6" component='p' color="text.secondary">Precio $ {producto.precio} </Typography>
-                        <Typography variant="h6" component='p' color="text.secondary">Marca: {producto.marca} </Typography>
-                        <Typography variant="h6" component='p' color="text.secondary">Stock disponible: {producto.stock} </Typography>      
+                        <Typography variant="h6" component='p' >Precio $ {producto.precio} </Typography>
+                        <Typography variant="h6" component='p' >Marca: {producto.marca} </Typography>
+                        {producto.stock > 0
+                            ? <Typography variant="h6" component='p'>Stock disponible: {producto.stock} </Typography>
+                            : <Typography variant="h6" component='p' color="text.secondary"> No hay stock</Typography>}
+
                     </Box>
                 </CardContent>
-                <CardActions sx={{ justifyContent: 'center'}}>
+                <CardActions sx={{ justifyContent: 'center' }}>
                     <Button component={Link} to={`/item/${producto.id}`} variant="outlined">Ver más</Button>
                 </CardActions>
             </Card>

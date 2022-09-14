@@ -6,12 +6,11 @@ import { Link } from 'react-router-dom';
 import { Button, CardMedia, Card, CardContent, CardActions } from '@mui/material';
 import Typography from '@mui/material/Typography';
 
-
 const ItemDetail = ({ item }) => {
 
   const { addToCart, isInCart } = useCartContext()
 
-  const [cantidad, setCantidad] = useState(1)
+  const [cantidad, setCantidad] = useState(0)
 
   const handleAgregar = () => {
     const itemToCart = {
@@ -24,6 +23,8 @@ const ItemDetail = ({ item }) => {
 
     addToCart(itemToCart)
   }
+
+  // if (stock === 0) { return ( ItemCount disble)}
 
 
   return (
