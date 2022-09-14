@@ -2,12 +2,19 @@ import { Button, Divider, Typography, Box } from '@mui/material'
 import { Container } from '@mui/system'
 import { useCartContext } from '../../context/CartContext'
 import DeleteIcon from '@mui/icons-material/Delete';
+import EmptyCart from '../EmptyCart/EmptyCart';
 
 
 const Cart = () => {
 
 
     const { cart, cartTotal, emptyCart, removeItem } = useCartContext()
+
+    if (cart.lenght === 0) {
+        return (
+            <EmptyCart/>
+        )
+    }
 
 
     return (
