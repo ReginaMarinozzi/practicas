@@ -8,7 +8,7 @@ const Cart = () => {
 
     const { cart, cartTotal, emptyCart, removeItem } = useCartContext()
 
-    if (cart.lenght === 0) {
+    if (cart.length === 0) {
         return (
             <EmptyCart />
         )

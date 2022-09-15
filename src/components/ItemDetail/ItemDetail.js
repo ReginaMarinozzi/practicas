@@ -6,23 +6,12 @@ import { Link } from 'react-router-dom';
 import { Button, CardMedia, Card, CardContent, CardActions } from '@mui/material';
 import Typography from '@mui/material/Typography';
 
-const ItemDetail = ({ item }) => {
+const ItemDetail = ({ item, handleAgregar }) => {
 
   const { addToCart, isInCart } = useCartContext()
 
   const [cantidad, setCantidad] = useState(0)
 
-  const handleAgregar = () => {
-    const itemToCart = {
-      id: item.id,
-      nombre: item.nombre,
-      precio: item.precio,
-      img: item.img,
-      cantidad
-    }
-
-    addToCart(itemToCart)
-  }
 
   // if (stock === 0) { return ( ItemCount disble)}
 
@@ -40,7 +29,6 @@ const ItemDetail = ({ item }) => {
           <Typography variant="body1" component='p' align="justify">{item.descripcion}</Typography>
           <Typography variant="h5" component='h5' align="center" sx={{ padding: 2 }}>Precio $ {item.precio}</Typography>
         </CardContent>
-{} 
 
         <CardActions>
           {isInCart(item.id)
@@ -49,7 +37,10 @@ const ItemDetail = ({ item }) => {
               max={item.stock}
               counter={cantidad}
               setCantidad={setCantidad}
-              handleAgregar={handleAgregar} />
+              handleAgregar={handleAgregar} 
+              addToCart={addToCart}
+              item={item}
+            />
           }
         </CardActions>
 
