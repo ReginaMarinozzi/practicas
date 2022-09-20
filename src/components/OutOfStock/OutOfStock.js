@@ -13,7 +13,7 @@ const OutOfStock = ({ item }) => {
 
         <CardContent align="justify">
           <Typography align="center" variant="h4" component='h4' >{item.nombre}</Typography>
-          <Typography variant="body1" component='p' align="justify">{item.descripcion}</Typography>
+          <Typography variant="body1" component='p' align="">{item.descripcion}</Typography>
           <Typography variant="h5" component='h5' align="center" sx={{ padding: 2 }}>Precio $ {item.precio}</Typography>
         </CardContent>
 
