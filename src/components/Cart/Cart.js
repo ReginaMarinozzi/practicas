@@ -3,6 +3,7 @@ import { Container } from '@mui/system'
 import { useCartContext } from '../../context/CartContext'
 import DeleteIcon from '@mui/icons-material/Delete';
 import EmptyCart from '../EmptyCart/EmptyCart';
+import { Link } from 'react-router-dom';
 
 const Cart = () => {
 
@@ -42,11 +43,15 @@ const Cart = () => {
             <Typography variant="h4" sx={{ margin: 2, textAlign: 'right' }} >
                 Total ${cartTotal()}
             </Typography>
+            <Box sx={{ textAlign: 'right', marginBottom: 2 }}>
+                <Button variant='contained' color='warning' size='large' component={Link} to='/checkout'>
+                    Terminar compra
+                </Button>
+            </Box>
             <Box sx={{ textAlign: 'right' }}>
                 <Button variant='contained' color='warning' size='large' onClick={emptyCart}>
                     Vaciar carrito
                 </Button>
-
             </Box>
 
         </Container>
