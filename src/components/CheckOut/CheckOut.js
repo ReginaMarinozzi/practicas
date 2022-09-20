@@ -3,8 +3,7 @@ import { Navigate } from "react-router-dom"
 import { useCartContext } from "../../context/CartContext"
 import { addDoc, collection } from 'firebase/firestore'
 import { db } from "../../firebase/config"
-import { Button, Container, Typography, Box } from '@mui/material'
-import TextField from '@mui/material/TextField';
+import { Button, Container, Typography, Box, Input } from '@mui/material'
 
 const CheckOut = () => {
 
@@ -78,7 +77,7 @@ const CheckOut = () => {
             <Box sx={{display:'flex', flexFlow: 'column wrap', margin: 2}} component="form" noValidate
                 autoComplete="off" onSubmit={handleSubmit}>
 
-                <TextField sx={{ margin: 2 }}
+                <Input sx={{ margin: 2 }}
                     required
                     id="outlined-required"
                     label="Tu nombre"
@@ -89,7 +88,7 @@ const CheckOut = () => {
                     placeholder="Tu nombre"
                 />
 
-                <TextField sx={{ margin: 2 }}
+                <Input sx={{ margin: 2 }}
                     required
                     id="outlined-required"
                     label="Email"
@@ -100,7 +99,7 @@ const CheckOut = () => {
                     placeholder="Email"
                 />
 
-                <TextField sx={{ margin: 2 }}
+                <Input sx={{ margin: 2 }}
                     required
                     id="outlined-required"
                     label="Dirección"
