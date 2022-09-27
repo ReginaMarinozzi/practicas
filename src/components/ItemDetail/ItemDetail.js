@@ -20,6 +20,7 @@ const ItemDetail = ({ item }) => {
       nombre: item.nombre,
       precio: item.precio,
       img: item.img,
+      stock: item.stock,
       cantidad
     }
 
@@ -43,7 +44,7 @@ const ItemDetail = ({ item }) => {
       <Box sx={{ marginTop: 3, padding: 5, display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
 
         <CardContent align="justify">
-          <Typography align="center" variant="h5" component='h4' >{item.nombre}</Typography>
+          <Typography align="center" variant="h4" component='h4' >{item.nombre}</Typography>
           <Typography variant="body1" component='p' align="justify">{item.descripcion}</Typography>
           <Typography variant="h5" component='h5' align="center" sx={{ padding: 2 }}>Precio $ {item.precio}</Typography>
         </CardContent>

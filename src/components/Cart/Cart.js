@@ -1,13 +1,14 @@
-import { Button, Divider, Typography, Box } from '@mui/material'
+import { Button, Divider, Typography, Box, ButtonGroup } from '@mui/material'
 import { Container } from '@mui/system'
 import { useCartContext } from '../../context/CartContext'
 import DeleteIcon from '@mui/icons-material/Delete';
 import EmptyCart from '../EmptyCart/EmptyCart';
 import { Link } from 'react-router-dom';
 
+
 const Cart = () => {
 
-    const { cart, cartTotal, emptyCart, removeItem } = useCartContext()
+    const { cart, cartTotal, emptyCart, removeItem, decreaseQuantityInCart, increaseQuantityInCart } = useCartContext()
 
     if (cart.length === 0) {
         return (
@@ -33,6 +34,11 @@ const Cart = () => {
                         <Button sx={{ margin: 1 }} variant="contained" size='small' color='error' onClick={() => removeItem(item.id)}>
                             <DeleteIcon />
                         </Button>
+                        <ButtonGroup variant="contained" aria-label="outlined primary button group" sx={{ my: 2 }} >
+                            <Button onClick={ () => decreaseQuantityInCart(item)} disabled={item.cantidad === 1} sx={{ px: 3 }}>-</Button>
+                            <Button variant="outlined" sx={{ px: 3 }}>{item.cantidad}</Button>
+                            <Button onClick={ () => increaseQuantityInCart (item)} sx={{ px: 3 }}>+</Button>
+                        </ButtonGroup>
                     </Box>
                     <Divider />
                 </Container>
@@ -43,15 +49,16 @@ const Cart = () => {
             <Typography variant="h4" sx={{ margin: 2, textAlign: 'right' }} >
                 Total ${cartTotal()}
             </Typography>
-            <Box sx={{ textAlign: 'right', marginBottom: 2 }}>
+            <Box sx={{ textAlign: 'right', marginBottom: 1 }}>
                 <Button variant='contained' color='warning' size='large' component={Link} to='/checkout'>
-                    Terminar compra
+                   Terminar mi compra
                 </Button>
             </Box>
             <Box sx={{ textAlign: 'right' }}>
                 <Button variant='contained' color='warning' size='large' onClick={emptyCart}>
                     Vaciar carrito
                 </Button>
+
             </Box>
 
         </Container>
