@@ -4,6 +4,8 @@ import MenuIcon from '@mui/icons-material/Menu'
 import AdbIcon from '@mui/icons-material/Adb';
 import ShoppingCart from './CartWidget.js';
 import { Link } from 'react-router-dom';
+import { LoginContext } from "../../context/LoginContext"
+import { useContext } from 'react';
 
 
 const settings = [
@@ -13,7 +15,7 @@ const settings = [
     },
     {
         nombre: 'Mis órdenes',
-        link: '/ordenes/regina.marinozzi@gmail.com'
+        link: '/ordenes'
     },
     {
         nombre: 'Mi wishlist',
@@ -38,6 +40,13 @@ const pages = [
 ];
 
 const ResponsiveAppBar = () => {
+
+    const { user, logout } = useContext(LoginContext)
+   
+    const handleLogout = async () =>{
+     await  logout ()
+    }
+
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -148,6 +157,10 @@ const ResponsiveAppBar = () => {
                         ))}
                     </Box>
 
+                    <Typography variant="body1" component='p'>Bienvenido: {user.email} </Typography>
+                    
+                    <Button onClick={handleLogout} variant='contained' color='primary' size='small' >Logout</Button>
+                    
                     <ShoppingCart />
 
                     <Box sx={{ flexGrow: 0 }}>
@@ -184,6 +197,7 @@ const ResponsiveAppBar = () => {
                                 </MenuItem>
                             ))}
                         </Menu>
+
                     </Box>
                 </Toolbar>
             </Container>
