@@ -4,15 +4,10 @@ import MenuIcon from '@mui/icons-material/Menu'
 import AdbIcon from '@mui/icons-material/Adb';
 import ShoppingCart from './CartWidget.js';
 import { Link } from 'react-router-dom';
-import { LoginContext } from "../../context/LoginContext"
-import { useContext } from 'react';
+// import { useLoginContext } from '../../context/LoginContext'
 
 
 const settings = [
-    {
-        nombre: 'Mi cuenta',
-        link: '/'
-    },
     {
         nombre: 'Mis órdenes',
         link: '/ordenes'
@@ -41,11 +36,16 @@ const pages = [
 
 const ResponsiveAppBar = () => {
 
-    const { user, logout } = useContext(LoginContext)
-   
-    const handleLogout = async () =>{
-     await  logout ()
-    }
+    // const { logout } = useContext(LoginContext)
+
+    // const handleLogout = async () => {
+    //     try {
+    //         await logout()
+    //     } catch (error) {
+    //         console.log(error.message)
+    //     }
+    // }
+
 
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -157,10 +157,9 @@ const ResponsiveAppBar = () => {
                         ))}
                     </Box>
 
-                    <Typography variant="body1" component='p'>Bienvenido: {user.email} </Typography>
                     
-                    <Button onClick={handleLogout} variant='contained' color='primary' size='small' >Logout</Button>
-                    
+                    {/* <Button onClick={handleLogout} variant='contained' color='primary' size='small' >Logout</Button> */}
+
                     <ShoppingCart />
 
                     <Box sx={{ flexGrow: 0 }}>

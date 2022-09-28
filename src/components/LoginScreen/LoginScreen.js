@@ -1,8 +1,7 @@
 import { Box, Button, Typography, Container } from '@mui/material';
 import { Formik, Form, Field } from 'formik';
 import { TextField } from 'formik-mui';
-import { LoginContext } from "../../context/LoginContext"
-import { useContext } from 'react';
+import { useLoginContext } from "../../context/LoginContext"
 import * as React from 'react';
 import * as Yup from 'yup';
 import { useNavigate } from 'react-router-dom';
@@ -10,13 +9,17 @@ import { useNavigate } from 'react-router-dom';
 
 const LoginScreen = () => {
 
-    const { login, loginWithGoogle } = useContext(LoginContext)
+    const { login, loginWithGoogle } = useLoginContext
 
     const navigate = useNavigate()
 
     const handleGoogleSignIn = async () => {
-        await loginWithGoogle
-        navigate('/')
+        try {
+            await loginWithGoogle
+            navigate('/')
+        } catch (error) {
+            console.log(error.message)
+        }
     }
 
     return (
