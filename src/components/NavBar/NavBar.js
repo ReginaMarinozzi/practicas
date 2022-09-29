@@ -4,7 +4,7 @@ import MenuIcon from '@mui/icons-material/Menu'
 import AdbIcon from '@mui/icons-material/Adb';
 import ShoppingCart from './CartWidget.js';
 import { Link } from 'react-router-dom';
-// import { useLoginContext } from '../../context/LoginContext'
+import { useLoginContext } from '../../context/LoginContext'
 
 
 const settings = [
@@ -36,15 +36,16 @@ const pages = [
 
 const ResponsiveAppBar = () => {
 
-    // const { logout } = useContext(LoginContext)
+    const { logout, user } = useLoginContext();
 
-    // const handleLogout = async () => {
-    //     try {
-    //         await logout()
-    //     } catch (error) {
-    //         console.log(error.message)
-    //     }
-    // }
+    const handleLogout = async () => {
+        try {
+            await logout();
+        } catch (error) {
+            console.error(error.message);
+        }
+    };
+
 
 
     const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -157,8 +158,60 @@ const ResponsiveAppBar = () => {
                         ))}
                     </Box>
 
-                    
-                    {/* <Button onClick={handleLogout} variant='contained' color='primary' size='small' >Logout</Button> */}
+
+                    <Box sx={{ flexGrow: 0 }}>
+
+                        {user ?
+
+                            <Box>
+                                <Button
+                                    component={Link}
+                                    to="/micuenta"
+                                    variant="contained"
+                                    sx={{ p: 0 }}>
+                                    <Typography textAlign="center" sx={{ my: 1, mx: 2, color: 'white' }}> Mi cuenta </Typography>
+                                </Button>
+
+                                <Button
+                                    onClick={handleLogout}
+                                    variant="contained"
+                                    sx={{ p: 0, marginLeft: 2 }}>
+                                    Cerrar sesión
+                                </Button>
+
+                            </Box>
+
+                            :
+
+                            <Box>
+
+                                <Button
+                                    component={Link}
+                                    to="/login"
+                                    variant="contained"
+                                    sx={{ p: 0 }}
+                                >
+                                    <Typography textAlign="center" sx={{ my: 1, mx: 2, color: 'white' }}> Acceder </Typography>
+                                </Button>
+
+                                <Button
+                                    component={Link}
+                                    to="/register"
+                                    variant="contained"
+                                    sx={{ p: 0, marginLeft: 2 }}>
+                                    <Typography textAlign="center" sx={{ my: 1, mx: 2, color: 'white' }}> Registrate </Typography>
+                                </Button>
+
+                            </Box>
+
+
+
+
+
+                        }
+
+                    </Box>
+
 
                     <ShoppingCart />
 
@@ -197,6 +250,7 @@ const ResponsiveAppBar = () => {
                             ))}
                         </Menu>
 
+
                     </Box>
                 </Toolbar>
             </Container>
@@ -204,3 +258,4 @@ const ResponsiveAppBar = () => {
     );
 };
 export default ResponsiveAppBar;
+
