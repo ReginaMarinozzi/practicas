@@ -10,11 +10,8 @@ import Home from '../components/Home/Home'
 const PrivateRoutes = () => {
 
     return (
-        <>
-          
 
-            <Routes>
-
+        <Routes>
                 <Route path="/ordenes" element={<MisOrdenesContainer />} />
                 <Route path="/checkout" element={<Checkout />} />
                 <Route path="/wishlist" element={<WishList />} />
@@ -23,12 +20,9 @@ const PrivateRoutes = () => {
                 <Route path='/' element={<Home />} />
                 <Route path='/cart' element={<Cart />} />
                 <Route path='/checkout' element={<Checkout />} />
-
                 <Route path='*' element={<Navigate to="/" />} />
-
-
             </Routes>
-        </>
+
     )
 }
 
