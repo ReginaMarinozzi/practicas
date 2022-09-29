@@ -60,7 +60,7 @@ const LoginScreen = () => {
       <form
         onSubmit={handleSubmit}
       >
-        <div className="mb-4">
+        <div>
           <label
             htmlFor="email"
              >

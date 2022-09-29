@@ -162,56 +162,23 @@ const ResponsiveAppBar = () => {
                     <Box sx={{ flexGrow: 0 }}>
 
                         {user ?
-
-                            <Box>
-                                <Button
-                                    component={Link}
-                                    to="/micuenta"
-                                    variant="contained"
-                                    sx={{ p: 0 }}>
-                                    <Typography textAlign="center" sx={{ my: 1, mx: 2, color: 'white' }}> Mi cuenta </Typography>
-                                </Button>
-
-                                <Button
-                                    onClick={handleLogout}
-                                    variant="contained"
-                                    sx={{ p: 0, marginLeft: 2 }}>
-                                    Cerrar sesión
-                                </Button>
-
-                            </Box>
-
+                            <Button
+                                onClick={handleLogout}
+                                variant="contained"
+                                sx={{ marginLeft: 2 }}>
+                                Cerrar sesión
+                            </Button>
                             :
-
-                            <Box>
-
-                                <Button
-                                    component={Link}
-                                    to="/login"
-                                    variant="contained"
-                                    sx={{ p: 0 }}
-                                >
-                                    <Typography textAlign="center" sx={{ my: 1, mx: 2, color: 'white' }}> Acceder </Typography>
-                                </Button>
-
-                                <Button
-                                    component={Link}
-                                    to="/register"
-                                    variant="contained"
-                                    sx={{ p: 0, marginLeft: 2 }}>
-                                    <Typography textAlign="center" sx={{ my: 1, mx: 2, color: 'white' }}> Registrate </Typography>
-                                </Button>
-
-                            </Box>
-
-
-
-
-
+                            <Button
+                                component={Link}
+                                to="/login"
+                                variant="contained"
+                            >
+                                Acceder
+                            </Button>
                         }
 
                     </Box>
-
 
                     <ShoppingCart />
 
