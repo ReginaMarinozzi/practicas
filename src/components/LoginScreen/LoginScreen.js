@@ -1,124 +1,109 @@
 import React from 'react'
-import { Typography } from '@mui/material'
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Formik, Field, Form } from 'formik'
+import * as Yup from 'yup'
 import { useLoginContext } from '../../context/LoginContext'
+import { useNavigate } from "react-router-dom"
+import { TextField } from 'formik-mui'
+import { Button } from '@mui/material'
+import { useState } from "react"
 
 const LoginScreen = () => {
 
-  const [user, setUser] = useState({
-    email: "",
-    password: "",
-  });
-  const { login, loginWithGoogle, resetPassword } = useLoginContext();
+  const { login, loginWithGoogle, resetPassword  } = useLoginContext();
+
+  const user =[ {email: '', password: ''}]
+
   const [error, setError] = useState("");
+  console.log(error)
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError("");
-    try {
-      await login(user.email, user.password);
-      navigate("/");
-    } catch (error) {
-      setError(error.message);
-      console.log(error)
-    }
-  };
-
-  const handleChange = ({ target: { value, name } }) =>
-    setUser({ ...user, [name]: value });
-
   const handleGoogleSignin = async () => {
-    try {
-      await loginWithGoogle();
-      navigate("/");
-    } catch (error) {
-      setError(error.message);
-    }
-  };
-
-  const handleResetPassword = async (e) => {
-    e.preventDefault();
-    if (!user.email) return setError("Write an email to reset password");
-    try {
-      await resetPassword(user.email);
-      setError('We sent you an email. Check your inbox')
-    } catch (error) {
-      setError(error.message);
-    }
-  };
-
+        try {
+          await loginWithGoogle();
+          navigate("/");
+        } catch (error) {
+        setError(error.message);;
+        }
+      };
+    
+      const handleResetPassword = async (e) => {
+        e.preventDefault();
+        if (!user.email) return setError("Write an email to reset password");
+        try {
+          await resetPassword(user.email);
+          setError('We sent you an email. Check your inbox')
+        } catch (error) {
+          setError(error.message);
+        }
+      };
+  
   return (
-
-    <div>
-
-    <Typography variant="h5" sx={{marginTop: 20}}> Login </Typography>
-
-      {error && <p>{error}</p>}
-
-      <form
-        onSubmit={handleSubmit}
-        
-      >
-        <div>
-          <label
-            htmlFor="email"
+    <Formik
+      initialValues={{  email: '' , password:'' }}
+      validationSchema={Yup.object({
+        email: Yup.string().email('Invalid email address').required('Required'),
+        // password: Yup.string()
+        // .required('Please Enter your password')
+        // .matches(
+        //   /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
+        //   "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character"
+        // )
+      })}
+      onSubmit={async (values, { setSubmitting, setStatus }) => {
+        setError("");
+        try {
+          await login(values.email, values.password)
+          navigate("/")
+        } catch (e) {
+          setSubmitting(false)
+          setError(error.message);
+        }
+      }}
+    >
+      {({ submitForm, isSubmitting }) => (
+      <Form style={{margin: '200px'}}>
+    
+      <Field
+        component={TextField}
+        type="email"
+        name="email"
+        label="eMail"
+      />
+      <Field
+        component={TextField}
+        type="password"
+        name="password"
+        label="password"
+      />
+      <Button  
+        variant="contained"
+        color="primary"
+        disabled={isSubmitting}
+        onClick={submitForm}
           >
-            Email
-          </label>
-          <input
-            type="email"
-            name="email"
-            id="email"
-            onChange={handleChange}
-            placeholder="youremail@company.tld"
-          />
-        </div>
-        <div>
-          <label
-            htmlFor="password"
-          >
-            Password
-          </label>
-          <input
-            type="password"
-            name="password"
-            id="password"
-            onChange={handleChange}
-            placeholder="*************"
-          />
-        </div>
-
-        <div>
-          <button
-            type="submit"
-          >
-            Sign In
-          </button>
-          <a
-            href="#!"
-            onClick={handleResetPassword}
-          >
-            Forgot Password?
-          </a>
-        </div>
-      </form>
-      <button
+        Submit
+      </Button>
+      <Button  
+        variant="contained"
+        color="primary"
+        disabled={isSubmitting}
         onClick={handleGoogleSignin}
-        
-      >
-        Google login
-      </button>
-      <p >
-        Don't have an account?
-        <Link to="/register" >
-          Register
-        </Link>
-      </p>
-    </div>
+          >
+        Sign In With Google
+      </Button>
+      <Button  
+        variant="contained"
+        color="primary"
+        disabled={isSubmitting}
+        onClick={handleResetPassword}
+          >
+        Reset password
+      </Button>
 
-  )
-}
 
+      </Form>
+      )}
+    </Formik>
+  );
+};
 export default LoginScreen
