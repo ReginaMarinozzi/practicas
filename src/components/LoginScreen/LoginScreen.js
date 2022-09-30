@@ -66,9 +66,9 @@ const LoginScreen = () => {
 
           <Typography variant="h4" component='h5'>Login</Typography>
           <Box>
-            <Grid container>
+            <Grid container my={4} rowSpacing={2} columnSpacing={1} >
           <Form>
-
+          <Grid item md={12} >
             <Field
               component={TextField}
               type="email"
@@ -81,6 +81,8 @@ const LoginScreen = () => {
               name="password"
               label="password"
             />
+            </Grid>
+            <Grid  item md={12}>
             <Button
               variant="contained"
               color="primary"
@@ -105,6 +107,7 @@ const LoginScreen = () => {
             >
               Reset password
             </Button>
+            </Grid>
             <Typography variant="body1" component={Link} to='/register'>Register</Typography>
           </Form>
           </Grid>

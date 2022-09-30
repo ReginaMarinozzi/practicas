@@ -46,9 +46,9 @@ const RegisterScreen = () => {
 
           <Typography variant="h4" component='h5'>Login</Typography>
           <Box>
-            <Grid container>
+            <Grid container padding={5} rowSpacing={2} columnSpacing={1} >
           <Form >
-
+          <Grid item md={12}>
             <Field
               component={TextField}
               type="email"
@@ -61,6 +61,8 @@ const RegisterScreen = () => {
               name="password"
               label="password"
             />
+            </Grid>
+            <Grid item md={12}>
             <Button
               variant="contained"
               color="primary"
@@ -70,7 +72,7 @@ const RegisterScreen = () => {
               Submit
             </Button>
             <Typography variant="body1" component={Link} to='/login'>Already have an Account?</Typography>
-
+            </Grid>
           </Form>
           </Grid>
           </Box>
