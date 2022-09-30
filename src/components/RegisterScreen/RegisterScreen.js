@@ -43,8 +43,7 @@ const RegisterScreen = () => {
       >
         <div className="mb-4">
           <label
-            htmlFor="email"
-       
+            htmlFor="email"  
           >
             Email
           </label>
