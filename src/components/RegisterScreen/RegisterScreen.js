@@ -1,83 +1,73 @@
 import React from 'react'
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Formik, Field, Form } from 'formik'
+import * as Yup from 'yup'
 import { useLoginContext } from '../../context/LoginContext'
-import { Typography } from '@mui/material'
+import { useNavigate, Link } from "react-router-dom"
+import { TextField } from 'formik-mui'
+import { Button, Typography } from '@mui/material'
+import { useState } from "react"
 
 const RegisterScreen = () => {
 
   const { signup } = useLoginContext();
 
-  const [user, setUser] = useState({
-    email: "",
-    password: "",
-  });
-
   const [error, setError] = useState("");
+
+  console.log(error)
+
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError("");
-    try {
-      await signup(user.email, user.password);
-      navigate("/");
-    } catch (error) {
-      setError(error.message);
-    }
-  };
-
-
   return (
-   
-    <div className="w-full max-w-xs m-auto text-black">
-
-    <Typography variant="h5" sx={{marginTop: 10}}> Register </Typography>
-
+    <Formik
+      initialValues={{  email: '' , password:'' }}
+      validationSchema={Yup.object({
+        email: Yup.string().email('Invalid email address').required('Required'),
+        password: Yup.string()
+        .required('Please Enter your password')
+        .matches(
+          /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
+          "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character"
+        )
+      })}
+      onSubmit={async (values, { setSubmitting, setStatus }) => {
+        setError("");
+        try {
+          await signup(values.email, values.password)
+          navigate("/")
+        } catch (e) {
+          setSubmitting(false)
+          setError(error.message);
+        }
+      }}
+    >
+      {({ submitForm, isSubmitting }) => (
+      <Form style={{margin: '200px'}}>
     
-    {error && <p>{error}</p>}
-
-      <form
-        onSubmit={handleSubmit}
-      
-      >
-        <div className="mb-4">
-          <label
-            htmlFor="email"  
+      <Field
+        component={TextField}
+        type="email"
+        name="email"
+        label="eMail"
+      />
+      <Field
+        component={TextField}
+        type="password"
+        name="password"
+        label="password"
+      />
+      <Button  
+        variant="contained"
+        color="primary"
+        disabled={isSubmitting}
+        onClick={submitForm}
           >
-            Email
-          </label>
-          <input
-            type="email"
-            onChange={(e) => setUser({ ...user, email: e.target.value })}
-            placeholder="youremail@company.tld"
-          />
-        </div>
-
-        <div>
-          <label
-            htmlFor="password" 
-          >
-            Password
-          </label>
-          <input
-            type="password"
-            onChange={(e) => setUser({ ...user, password: e.target.value })}
-            placeholder="*************"
-          />
-        </div>
-
-        <button >
-          Register
-        </button>
-      </form>
-      <p>
-        Already have an Account?
-        <Link to="/login">
-          Login
-        </Link>
-      </p>
-    </div>
+        Submit
+      </Button>
+      <Typography variant="body1" component={Link} to='/login'>Already have an Account?</Typography>  
+    
+      </Form>
+      )}
+    </Formik>
   )
 }
 

@@ -2,9 +2,9 @@ import React from 'react'
 import { Formik, Field, Form } from 'formik'
 import * as Yup from 'yup'
 import { useLoginContext } from '../../context/LoginContext'
-import { useNavigate } from "react-router-dom"
+import { useNavigate, Link } from "react-router-dom"
 import { TextField } from 'formik-mui'
-import { Button } from '@mui/material'
+import { Button, Typography } from '@mui/material'
 import { useState } from "react"
 
 const LoginScreen = () => {
@@ -42,12 +42,12 @@ const LoginScreen = () => {
       initialValues={{  email: '' , password:'' }}
       validationSchema={Yup.object({
         email: Yup.string().email('Invalid email address').required('Required'),
-        // password: Yup.string()
-        // .required('Please Enter your password')
-        // .matches(
-        //   /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
-        //   "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character"
-        // )
+        password: Yup.string()
+        .required('Please Enter your password')
+        .matches(
+          /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
+          "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character"
+        )
       })}
       onSubmit={async (values, { setSubmitting, setStatus }) => {
         setError("");
@@ -99,11 +99,10 @@ const LoginScreen = () => {
           >
         Reset password
       </Button>
-
-
+      <Typography variant="body1" component={Link} to='/register'>Register</Typography>  
       </Form>
       )}
     </Formik>
-  );
-};
+  )
+}
 export default LoginScreen
