@@ -1,45 +1,71 @@
-import React from 'react'
-import { collection, getDocs, query, where } from "firebase/firestore"
-import { db } from "../../firebase/config"
-import { useEffect, useState } from 'react';
-import { Container } from '@mui/system';
-import Loader from '../Loader/Loader'
-import OrderList from '../OrderList/OrderList'
-import {useLoginContext} from '../../context/LoginContext'
+import * as React from 'react';
+import { Box, Typography, Card, CardContent, CardMedia } from "@mui/material"
 
 
-const OrdersContainer = () => {
-    const [ordenes, setOrdenes] = useState([])
-    const [loading, setLoading] = useState(true)
-
-    const {user} = useLoginContext()
-
-    useEffect(() => {
-        setLoading(true)
-        
-        const ordenesRef = collection(db, 'ordenes')
-
-        const q = user.uid
-            ? query(ordenesRef, where('iduser', '==', user.uid))
-            : ordenesRef
-
-        getDocs (q)
-            .then( (resp) => {
-             const ordenesDB = resp.docs.map((doc) => doc.data())
-                
-             setOrdenes(ordenesDB)
-            })
-            .finally(() => {
-                setLoading(false)
-            })
-    }, [user.uid])
-
+const Orders = ({ orden }) => {
 
   return (
-    <Container sx={{ marginTop: 12, marginBottom: 10 }}>
-            {loading ? <Loader /> : <OrderList ordenes={ordenes} />}
-        </Container>
+
+    <Card sx={{ padding: 2, borderRadius: 3, marginBottom: 4 }}>
+
+      <Box sx={{ alignItems: 'center', justifyContent: 'space-around' }} elevation={5}>
+
+        <CardContent>
+          <Typography variant="h4" component='h5'>
+            Datos del pedido
+          </Typography>
+
+          <Typography variant="h5" component='h5'>
+            eMail: {orden.comprador.email}
+          </Typography>
+          <Typography variant="h5" component='h5'>
+            Teléfono: {orden.comprador.telefono}
+          </Typography>
+          <Typography variant="h5" component='h5'>
+            Nombre: {orden.comprador.nombre}
+          </Typography>
+          <Typography variant="h5" component='h5'>
+            Dirección: {orden.comprador.direccion}
+          </Typography> 
+
+          <Typography variant="h5" component='h5'>
+            Número de orden:
+          </Typography>
+        </CardContent> 
+
+           {orden.items.map((items, index) => {
+            return <Box sx={{display: 'flex', flexDirection: 'row', justifyContent: 'space-around'}} key={index}>
+
+              <CardMedia
+                component="img"
+                image={items.img}
+                alt="imagen"
+                sx={{ maxWidth: '100px', marginBottom: 1 }}
+              />
+
+              <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'right', justifyContent: 'center'}}>
+
+              <Typography variant="h5" component='h5'>
+                Precio ${items.precio}
+              </Typography>
+
+              <Typography variant="h5" component='h5'>
+                Artículo: {items.nombre}
+              </Typography>
+
+              <Typography variant="h5" component='h5'>
+                Cantidad: {items.cantidad}
+              </Typography>
+              </Box>
+            </Box>
+          })} 
+        
+          <Typography variant="h5" component='h5'>
+            Total de la orden: ${orden.total}
+          </Typography>
+      </Box>
+    </Card>
   )
 }
 
-export default OrdersContainer
+export default Orders

@@ -31,6 +31,7 @@ const SearchNavBar = () => {
         getDocs(q)
             .then((resp) => {
                 const productosDB = resp.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
+                
                 setProductos(productosDB)
             })
             .finally(() => {
