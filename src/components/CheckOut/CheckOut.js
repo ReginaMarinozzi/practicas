@@ -1,4 +1,4 @@
-import { Box, Button, Typography, Container } from '@mui/material';
+import { Box, Button, Typography, Container, Grid } from '@mui/material';
 import { Formik, Form, Field } from 'formik';
 import { TextField } from 'formik-mui';
 import * as React from 'react';
@@ -10,11 +10,13 @@ import { addDoc, collection, getDocs, writeBatch, query, where, documentId } fro
 import { db } from "../../firebase/config"
 import CompraExitosa from "../CompraExitosa/CompraExitosa"
 import Swal from 'sweetalert2'
-
+import { useLoginContext } from "../../context/LoginContext"
 
 const Checkout = () => {
 
     const { cart, cartTotal, terminarCompra } = useCartContext()
+
+    const { user } = useLoginContext()
 
     const [orderId, setOrderId] = useState(null)
 
@@ -50,7 +52,8 @@ const Checkout = () => {
                 const orden = {
                     comprador: values,
                     items: cart,
-                    total: cartTotal()
+                    total: cartTotal(),
+                    iduser: user.uid
                 }
 
                 const batch = writeBatch(db)
@@ -103,53 +106,55 @@ const Checkout = () => {
                 <Container sx={{ marginTop: 15 }}>
                     <Typography sx={{ padding: 5 }} variant="h4" component='h5'>Checkout</Typography>
 
-                    <Box sx={{ display: 'flex', flexFlow: 'column wrap', margin: 2 }}>
+
+                    <Grid container my={4} rowSpacing={2} columnSpacing={1} >
                         <Form >
+                            <Grid item md={12} >
+                                <Field sx={{ margin: 1 }}
+                                    component={TextField}
+                                    type="email"
+                                    name="email"
+                                    label="eMail"
 
-                            <Field
-                                component={TextField}
-                                type="email"
-                                name="email"
-                                label="eMail"
+                                />
 
-                            />
+                                <Field sx={{ margin: 1 }}
+                                    component={TextField}
+                                    name="nombre"
+                                    type="nombre"
+                                    label="Nombre y apellido"
+                                /></Grid>
+                            <Grid item md={12} >
+                                <Field sx={{ margin: 1 }}
+                                    component={TextField}
+                                    type="direccion"
+                                    name="direccion"
+                                    label="Direccion"
 
-                            <Field
-                                component={TextField}
-                                name="nombre"
-                                type="nombre"
-                                label="Nombre y apellido"
-                            />
+                                />
 
-                            <Field
-                                component={TextField}
-                                type="direccion"
-                                name="direccion"
-                                label="Direccion"
+                                <Field sx={{ margin: 1 }}
+                                    component={TextField}
+                                    type="telefono"
+                                    name="telefono"
+                                    label="Telefono"
 
-                            />
+                                /></Grid>
+                            <Box sx={{ display: 'flex', flexFlow: 'column wrap', margin: 2 }}>
 
-                            <Field
-                                component={TextField}
-                                type="telefono"
-                                name="telefono"
-                                label="Telefono"
-
-                            />
-
-                            <Button
-                                variant="contained"
-                                color="warning"
-                                disabled={isSubmitting}
-                                onClick={submitForm}
-                                sx={{ margin: 3 }}
-                                size='small'
-                            >
-                                Enviar
-                            </Button>
-
+                                <Button sx={{ margin: 1 }}
+                                    variant="contained"
+                                    color="warning"
+                                    disabled={isSubmitting}
+                                    onClick={submitForm}
+                                    size='small'
+                                >
+                                    Enviar
+                                </Button>
+                            </Box>
                         </Form>
-                    </Box>
+                    </Grid>
+
                 </Container>
             )}
         </Formik>

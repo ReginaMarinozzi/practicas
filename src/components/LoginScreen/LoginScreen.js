@@ -4,37 +4,39 @@ import * as Yup from 'yup'
 import { useLoginContext } from '../../context/LoginContext'
 import { useNavigate, Link } from "react-router-dom"
 import { TextField } from 'formik-mui'
-import { Button, Typography, Box, Grid } from '@mui/material'
+import { Button, Typography, Grid } from '@mui/material'
 import { useState } from "react"
 import { Container } from '@mui/system'
 
+
 const LoginScreen = () => {
 
-  const { login, loginWithGoogle, resetPassword } = useLoginContext();
+  const { login, loginWithGoogle, resetPassword } = useLoginContext()
 
   const user = [{ email: '', password: '' }]
 
-  const [error, setError] = useState("");
-  console.log(error)
-  const navigate = useNavigate();
+  const [error, setError] = useState("")
+
+  const navigate = useNavigate()
 
   const handleGoogleSignin = async () => {
     try {
-      await loginWithGoogle();
-      navigate("/");
+      await loginWithGoogle()
+      navigate(-1)
     } catch (error) {
-      setError(error.message);;
+      setError(error.message)
     }
   };
 
   const handleResetPassword = async (e) => {
-    e.preventDefault();
-    if (!user.email) return setError("Write an email to reset password");
+    e.preventDefault()
+    setError("")
+    if (!user.email) return setError("Write an email to reset password")
     try {
-      await resetPassword(user.email);
+      await resetPassword(user.email)
       setError('We sent you an email. Check your inbox')
     } catch (error) {
-      setError(error.message);
+      setError(error.message)
     }
   };
 
@@ -43,21 +45,21 @@ const LoginScreen = () => {
       initialValues={{ email: '', password: '' }}
       validationSchema={Yup.object({
         email: Yup.string().email('Invalid email address').required('Required'),
-        password: Yup.string()
-          .required('Please Enter your password')
-          .matches(
-            /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
-            "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character"
-          )
+        // password: Yup.string()
+        //   .required('Please Enter your password')
+        //   .matches(
+        //     /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
+        //     "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character"
+        //   )
       })}
-      onSubmit={async (values, { setSubmitting, setStatus }) => {
-        setError("");
+      onSubmit={async (values, { setSubmitting }) => {
+        setError("")
         try {
           await login(values.email, values.password)
-          navigate("/")
+          navigate(-1)
         } catch (e) {
           setSubmitting(false)
-          setError(error.message);
+          setError(error.message)
         }
       }}
     >
@@ -65,17 +67,18 @@ const LoginScreen = () => {
         <Container sx={{ marginTop: 15 }}>
 
           <Typography variant="h4" component='h5'>Login</Typography>
-          <Box>
+         
             <Grid container my={4} rowSpacing={2} columnSpacing={1} >
           <Form>
           <Grid item md={12} >
-            <Field
+          {error && <Typography variant="body1" component='p'>{error}</Typography>}
+            <Field sx={{ margin: 1 }}
               component={TextField}
               type="email"
               name="email"
               label="eMail"
             />
-            <Field
+            <Field sx={{ margin: 1 }}
               component={TextField}
               type="password"
               name="password"
@@ -83,7 +86,7 @@ const LoginScreen = () => {
             />
             </Grid>
             <Grid  item md={12}>
-            <Button
+            <Button sx={{ margin: 1 }}
               variant="contained"
               color="primary"
               disabled={isSubmitting}
@@ -91,7 +94,7 @@ const LoginScreen = () => {
             >
               Submit
             </Button>
-            <Button
+            <Button sx={{ margin: 1 }}
               variant="contained"
               color="primary"
               disabled={isSubmitting}
@@ -99,7 +102,7 @@ const LoginScreen = () => {
             >
               Sign In With Google
             </Button>
-            <Button
+            <Button sx={{ margin: 1 }}
               variant="contained"
               color="primary"
               disabled={isSubmitting}
@@ -108,10 +111,10 @@ const LoginScreen = () => {
               Reset password
             </Button>
             </Grid>
-            <Typography variant="body1" component={Link} to='/register'>Register</Typography>
+            <Typography sx={{ margin: 1 }} variant="body1" component={Link} to='/register'>Register</Typography>
           </Form>
           </Grid>
-          </Box>
+        
         
         </Container>
       )}

@@ -3,9 +3,11 @@ import { AppBar, Box, Typography, Toolbar, IconButton, Menu, Container, Avatar, 
 import MenuIcon from '@mui/icons-material/Menu'
 import AdbIcon from '@mui/icons-material/Adb';
 import ShoppingCart from './CartWidget.js';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useLoginContext } from '../../context/LoginContext'
-
+import { useState } from 'react';
+import InputBase from '@mui/material/InputBase';
+import { styled, alpha } from '@mui/material/styles';
 
 const settings = [
     {
@@ -33,6 +35,38 @@ const pages = [
         link: '/productos/makeup'
     }
 ];
+
+const Search = styled('div')(({ theme }) => ({
+    position: 'relative',
+    borderRadius: theme.shape.borderRadius,
+    backgroundColor: alpha(theme.palette.common.white, 0.15),
+    '&:hover': {
+        backgroundColor: alpha(theme.palette.common.white, 0.25),
+    },
+    marginLeft: 0,
+    width: '100%',
+    [theme.breakpoints.up('sm')]: {
+        marginLeft: theme.spacing(1),
+        width: 'auto',
+    },
+}));
+
+const StyledInputBase = styled(InputBase)(({ theme }) => ({
+    color: 'inherit',
+    '& .MuiInputBase-input': {
+        padding: theme.spacing(1, 1, 1, 0),
+        // vertical padding + font size from searchIcon
+        paddingLeft: `calc(1em)`,
+        transition: theme.transitions.create('width'),
+        width: '100%',
+        [theme.breakpoints.up('sm')]: {
+            width: '12ch',
+            '&:focus': {
+                width: '20ch',
+            },
+        },
+    },
+}))
 
 const ResponsiveAppBar = () => {
 
@@ -65,6 +99,14 @@ const ResponsiveAppBar = () => {
     const handleCloseUserMenu = () => {
         setAnchorElUser(null);
     };
+
+    const navigate = useNavigate()
+    const [search, setSearch] = useState("")
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        navigate(`/search?name=${search}`)
+    }
 
     return (
         <AppBar position="fixed" sx={{ bgcolor: '#e1aac1' }}>
@@ -158,6 +200,26 @@ const ResponsiveAppBar = () => {
                         ))}
                     </Box>
 
+                    <Search sx={{marginRight: 1}}>
+                        <form onSubmit={handleSubmit}>
+                            
+                            <StyledInputBase
+                                placeholder="Buscar..."
+                                onChange={(e) => setSearch(e.target.value)}
+                                value={search}
+                                id="message"
+                                name="message"
+                            />
+
+                            <Button
+                                variant="outline"
+                                type="submit"
+                            >
+                                Buscar
+                            </Button>
+
+                        </form>
+                    </Search>
 
                     <Box sx={{ flexGrow: 0 }}>
 
