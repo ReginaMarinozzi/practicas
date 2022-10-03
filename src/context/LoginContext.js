@@ -8,6 +8,7 @@ const LoginContext = createContext();
 export function LoginProvider({ children }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  
 
   const signup = (email, password) => {
     return createUserWithEmailAndPassword(auth, email, password);

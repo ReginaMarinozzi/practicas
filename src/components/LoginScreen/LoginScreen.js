@@ -30,7 +30,6 @@ const LoginScreen = () => {
 
   const handleResetPassword = async (e) => {
     e.preventDefault()
-    setError("")
     if (!user.email) return setError("Write an email to reset password")
     try {
       await resetPassword(user.email)
