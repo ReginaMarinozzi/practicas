@@ -42,14 +42,14 @@ const RegisterScreen = () => {
         //     "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character"
         //   )
       })}
-      onSubmit={async (values, { setSubmitting }) => {
+      onSubmit={async (values) => {
         setError("")
         try {
           await signup(values.email, values.password)
           navigate("/")
-        } catch (e) {
-          setSubmitting(false)
-          setError(error.message)
+        } catch (error) {
+          if (error.code === 'auth/email-already-in-use')
+          setError('El usuario ya existe')
         }
       }}
     >

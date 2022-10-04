@@ -16,7 +16,7 @@ const SearchNavBar = () => {
     const useQuery = () => {
         return new URLSearchParams(useLocation().search);
     }
-    let search = useQuery().get('name')
+    let search = (useQuery().get('name')).toLowerCase()
 
     const [productos, setProductos] = useState([])
     const [loading, setLoading] = useState(true)

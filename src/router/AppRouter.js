@@ -1,8 +1,8 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom"
 import PrivateRoutes from "./PrivateRoutes"
-import ItemListContainer from '../components/ItemListContainer/ItemListContainer';
-import ItemDetailContainer from '../components/ItemDetailContainer/ItemDetailContainer';
-import Cart from '../components/Cart/Cart';
+import ItemListContainer from '../components/ItemListContainer/ItemListContainer'
+import ItemDetailContainer from '../components/ItemDetailContainer/ItemDetailContainer'
+import Cart from '../components/Cart/Cart'
 import Home from '../components/Home/Home'
 import RegisterScreen from '../components/RegisterScreen/RegisterScreen'
 import ResponsiveAppBar from '../components/NavBar/NavBar'
@@ -11,6 +11,7 @@ import OrdersContainer from '../components/OrdersContainer/OrdersContainer'
 import Wishlist from '../components/WishList/WishList'
 import Checkout from '../components/Checkout/Checkout'
 import SearchNavBar from '../components/NavBar/SearchNavBar'
+import Footer from '../components/Footer/Footer'
 
 const AppRouter = () => {
 
@@ -30,14 +31,16 @@ const AppRouter = () => {
                 <Route path='*' element={<Navigate to="/login" />} />
 
                 <Route element={<PrivateRoutes />} >
-                    
+
                     <Route path='/ordenes' element={<OrdersContainer />} />
                     <Route path='/wishlist' element={<Wishlist />} />
-                    <Route path='/checkout' element={<Checkout />} /> 
-                
-                   </Route>
+                    <Route path='/checkout' element={<Checkout />} />
+
+                </Route>
 
             </Routes>
+
+            <Footer />
 
         </BrowserRouter >
     )

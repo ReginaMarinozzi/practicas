@@ -1,39 +1,40 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { auth } from '../firebase/config'
 import { createUserWithEmailAndPassword,  signInWithEmailAndPassword,  signOut,  onAuthStateChanged,  GoogleAuthProvider,  signInWithPopup,
-  sendPasswordResetEmail } from "firebase/auth";
+  // sendPasswordResetEmail 
+} from "firebase/auth";
 
-const LoginContext = createContext();
+const LoginContext = createContext()
 
 export function LoginProvider({ children }) {
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState(null)
+  const [loading, setLoading] = useState(true)
   
 
   const signup = (email, password) => {
-    return createUserWithEmailAndPassword(auth, email, password);
-  };
+    return createUserWithEmailAndPassword(auth, email, password)
+  }
 
   const login = (email, password) => {
-    return signInWithEmailAndPassword(auth, email, password);
-  };
+     signInWithEmailAndPassword(auth, email, password)
+  }
 
   const loginWithGoogle = () => {
-    const googleProvider = new GoogleAuthProvider();
-    return signInWithPopup(auth, googleProvider);
-  };
+    const googleProvider = new GoogleAuthProvider()
+    return signInWithPopup(auth, googleProvider)
+  }
 
-  const logout = () => signOut(auth);
+  const logout = () => signOut(auth)
 
-  const resetPassword = async (email) => sendPasswordResetEmail(auth, email);
+  // const resetPassword = (email) => sendPasswordResetEmail(auth, email)
 
   useEffect(() => {
     const unsubuscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
-      setLoading(false);
-    });
-    return () => unsubuscribe();
-  }, []);
+      setUser(currentUser)
+      setLoading(false)
+    })
+    return () => unsubuscribe()
+  }, [])
 
   return (
     <LoginContext.Provider
@@ -44,7 +45,7 @@ export function LoginProvider({ children }) {
         logout,
         loading,
         loginWithGoogle,
-        resetPassword,
+        // resetPassword,
       }}
     >
       {children}

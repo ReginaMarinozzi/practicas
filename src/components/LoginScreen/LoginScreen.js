@@ -11,9 +11,7 @@ import { Container } from '@mui/system'
 
 const LoginScreen = () => {
 
-  const { login, loginWithGoogle, resetPassword } = useLoginContext()
-
-  const user = [{ email: '', password: '' }]
+  const { login, loginWithGoogle } = useLoginContext()
 
   const [error, setError] = useState("")
 
@@ -28,16 +26,16 @@ const LoginScreen = () => {
     }
   };
 
-  const handleResetPassword = async (e) => {
-    e.preventDefault()
-    if (!user.email) return setError("Write an email to reset password")
-    try {
-      await resetPassword(user.email)
-      setError('We sent you an email. Check your inbox')
-    } catch (error) {
-      setError(error.message)
-    }
-  };
+  // const handleResetPassword = async (e) => {
+  //   e.preventDefault()
+  //   if (!user.email) return setError("Write an email to reset password")
+  //   try {
+  //     await resetPassword(user.email)
+  //     setError('We sent you an email. Check your inbox')
+  //   } catch (error) {
+  //   setError(error)
+  //   }
+  // };
 
   return (
     <Formik
@@ -51,14 +49,21 @@ const LoginScreen = () => {
         //     "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character"
         //   )
       })}
-      onSubmit={async (values, { setSubmitting }) => {
+      onSubmit={async (values) => {
         setError("")
         try {
           await login(values.email, values.password)
           navigate(-1)
-        } catch (e) {
-          setSubmitting(false)
-          setError(error.message)
+        } catch (error) {
+          if (error.code === 'auth/user-not-found') {
+            setError('Correo invalido')
+          }
+          if (error.code === 'auth/wrong-password') {
+            setError('Contraseña invalida')
+          }
+          if (error.code === ' auth/user-not-found') {
+            setError('Usuario no encontrado')
+          }
         }
       }}
     >
@@ -66,55 +71,55 @@ const LoginScreen = () => {
         <Container sx={{ marginTop: 15 }}>
 
           <Typography variant="h4" component='h5'>Login</Typography>
-         
-            <Grid container my={4} rowSpacing={2} columnSpacing={1} >
-          <Form>
-          <Grid item md={12} >
-          {error && <Typography variant="body1" component='p'>{error}</Typography>}
-            <Field sx={{ margin: 1 }}
-              component={TextField}
-              type="email"
-              name="email"
-              label="eMail"
-            />
-            <Field sx={{ margin: 1 }}
-              component={TextField}
-              type="password"
-              name="password"
-              label="password"
-            />
-            </Grid>
-            <Grid  item md={12}>
-            <Button sx={{ margin: 1 }}
-              variant="contained"
-              color="primary"
-              disabled={isSubmitting}
-              onClick={submitForm}
-            >
-              Submit
-            </Button>
-            <Button sx={{ margin: 1 }}
-              variant="contained"
-              color="primary"
-              disabled={isSubmitting}
-              onClick={handleGoogleSignin}
-            >
-              Sign In With Google
-            </Button>
-            <Button sx={{ margin: 1 }}
-              variant="contained"
-              color="primary"
-              disabled={isSubmitting}
-              onClick={handleResetPassword}
-            >
-              Reset password
-            </Button>
-            </Grid>
-            <Typography sx={{ margin: 1 }} variant="body1" component={Link} to='/register'>Register</Typography>
-          </Form>
+
+          <Grid container my={4} rowSpacing={2} columnSpacing={1} >
+            <Form>
+              <Grid item md={12} >
+                {error && <Typography variant="body1" component='p'>{error}</Typography>}
+                <Field sx={{ margin: 1 }}
+                  component={TextField}
+                  type="email"
+                  name="email"
+                  label="eMail"
+                />
+                <Field sx={{ margin: 1 }}
+                  component={TextField}
+                  type="password"
+                  name="password"
+                  label="password"
+                />
+              </Grid>
+              <Grid item md={12}>
+                <Button sx={{ margin: 1 }}
+                  variant="contained"
+                  color="primary"
+                  disabled={isSubmitting}
+                  onClick={submitForm}
+                >
+                  Submit
+                </Button>
+                <Button sx={{ margin: 1 }}
+                  variant="contained"
+                  color="primary"
+                  disabled={isSubmitting}
+                  onClick={handleGoogleSignin}
+                >
+                  Sign In With Google
+                </Button>
+                {/* <Button sx={{ margin: 1 }}
+                  variant="contained"
+                  color="primary"
+                  disabled={isSubmitting}
+                  onClick={handleResetPassword}
+                >
+                  Reset password
+                </Button> */}
+              </Grid>
+              <Typography sx={{ margin: 1 }} variant="body1" component={Link} to='/register'>Register</Typography>
+            </Form>
           </Grid>
-        
-        
+
+
         </Container>
       )}
     </Formik>
