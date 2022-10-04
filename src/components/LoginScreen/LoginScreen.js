@@ -11,29 +11,31 @@ import { Container } from '@mui/system'
 
 const LoginScreen = () => {
 
-  const { login, loginWithGoogle } = useLoginContext()
+  const { login, loginWithGoogle, user } = useLoginContext();
 
-  const [error, setError] = useState("")
+  console.log(user)
 
-  const navigate = useNavigate()
+  const [error, setError] = useState('');
+
+  const navigate = useNavigate();
 
   const handleGoogleSignin = async () => {
     try {
-      await loginWithGoogle()
-      navigate(-1)
+      await loginWithGoogle();
+      navigate(-1);
     } catch (error) {
       setError(error.message)
     }
   };
 
   // const handleResetPassword = async (e) => {
-  //   e.preventDefault()
-  //   if (!user.email) return setError("Write an email to reset password")
+  //   e.preventDefault();
+  //   if (!user.email) return setError("Write an email to reset password");
   //   try {
-  //     await resetPassword(user.email)
+  //     await resetPassword(user.email);
   //     setError('We sent you an email. Check your inbox')
   //   } catch (error) {
-  //   setError(error)
+  //     setError(error.message);
   //   }
   // };
 
@@ -50,10 +52,10 @@ const LoginScreen = () => {
         //   )
       })}
       onSubmit={async (values) => {
-        setError("")
+        setError('');
         try {
           await login(values.email, values.password)
-          navigate(-1)
+          navigate('/')
         } catch (error) {
           if (error.code === 'auth/user-not-found') {
             setError('Correo invalido')
@@ -68,61 +70,61 @@ const LoginScreen = () => {
       }}
     >
       {({ submitForm, isSubmitting }) => (
-        <Container sx={{ marginTop: 15 }}>
+ <Container sx={{ marginTop: 15 }}>
 
-          <Typography variant="h4" component='h5'>Login</Typography>
+ <Typography variant="h4" component='h5'>Login</Typography>
 
-          <Grid container my={4} rowSpacing={2} columnSpacing={1} >
-            <Form>
-              <Grid item md={12} >
-                {error && <Typography variant="body1" component='p'>{error}</Typography>}
-                <Field sx={{ margin: 1 }}
-                  component={TextField}
-                  type="email"
-                  name="email"
-                  label="eMail"
-                />
-                <Field sx={{ margin: 1 }}
-                  component={TextField}
-                  type="password"
-                  name="password"
-                  label="password"
-                />
-              </Grid>
-              <Grid item md={12}>
-                <Button sx={{ margin: 1 }}
-                  variant="contained"
-                  color="primary"
-                  disabled={isSubmitting}
-                  onClick={submitForm}
-                >
-                  Submit
-                </Button>
-                <Button sx={{ margin: 1 }}
-                  variant="contained"
-                  color="primary"
-                  disabled={isSubmitting}
-                  onClick={handleGoogleSignin}
-                >
-                  Sign In With Google
-                </Button>
-                {/* <Button sx={{ margin: 1 }}
-                  variant="contained"
-                  color="primary"
-                  disabled={isSubmitting}
-                  onClick={handleResetPassword}
-                >
-                  Reset password
-                </Button> */}
-              </Grid>
-              <Typography sx={{ margin: 1 }} variant="body1" component={Link} to='/register'>Register</Typography>
-            </Form>
-          </Grid>
+ <Grid container my={4} rowSpacing={2} columnSpacing={1} >
+   <Form>
+     <Grid item md={12} >
+       {error && <Typography variant="body1" component='p'>{error}</Typography>}
+       <Field sx={{ margin: 1 }}
+         component={TextField}
+         type="email"
+         name="email"
+         label="eMail"
+       />
+       <Field sx={{ margin: 1 }}
+         component={TextField}
+         type="password"
+         name="password"
+         label="password"
+       />
+     </Grid>
+     <Grid item md={12}>
+       <Button sx={{ margin: 1 }}
+         variant="contained"
+         color="primary"
+         disabled={isSubmitting}
+         onClick={submitForm}
+       >
+         Submit
+       </Button>
+       <Button sx={{ margin: 1 }}
+         variant="contained"
+         color="primary"
+         disabled={isSubmitting}
+         onClick={handleGoogleSignin}
+       >
+         Sign In With Google
+       </Button>
+       {/* <Button sx={{ margin: 1 }}
+         variant="contained"
+         color="primary"
+         disabled={isSubmitting}
+         onClick={handleResetPassword}
+       >
+         Reset password
+       </Button>  */}
+     </Grid>
+     <Typography sx={{ margin: 1 }} variant="body1" component={Link} to='/register'>Register</Typography>
+   </Form>
+ </Grid>
 
 
-        </Container>
-      )}
-    </Formik>
+</Container>
+)}
+</Formik>
   )
 }
 export default LoginScreen
