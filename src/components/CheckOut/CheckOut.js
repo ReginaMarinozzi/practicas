@@ -111,10 +111,12 @@ const Checkout = () => {
                         <Form >
                             <Grid item md={12} >
                                 <Field sx={{ margin: 1 }}
-                                    component={TextField}
-                                    type="email"
-                                    name="email"
-                                    label="eMail"
+                                      disabled={true}
+                                      component={TextField}
+                                      type="email"
+                                      name="email"
+                                      label="eMail"
+                                      value={user.email}
 
                                 />
 
