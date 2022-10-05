@@ -82,18 +82,24 @@ const LoginScreen = () => {
                 id="password"
                 onChange={handleChange}
                 placeholder="*************"
+                error={!user}
+                helperText={!user ? 'Required' : ''}
               />
             </Grid>
 
             <Grid item md={12} sx={{ padding: 2 }}>
               <Button
                 type="submit"
+                variant='contained'
+                sx={{ margin: 1 }}
               >
                 Sign In
               </Button>
               <Button component={Link}
                 to="#!"
                 onClick={handleResetPassword}
+                variant='contained'
+                sx={{ margin: 1 }}
               >
                 Forgot Password?
               </Button>
@@ -101,6 +107,7 @@ const LoginScreen = () => {
             <Grid item md={12} sx={{ padding: 2 }}>
               <Button
                 onClick={handleGoogleSignin}
+                variant='contained'
               >
                 Google login
               </Button>

@@ -1,11 +1,13 @@
-import ItemCount from '../ItemCount/ItemCount';
-import { Box } from '@mui/system';
-import { useCartContext } from '../../context/CartContext';
-import { Link } from 'react-router-dom';
-import { Button, CardMedia, Card, CardContent, CardActions } from '@mui/material';
-import Typography from '@mui/material/Typography';
-import { useState } from 'react';
+import ItemCount from '../ItemCount/ItemCount'
+import { Box } from '@mui/system'
+import { useCartContext } from '../../context/CartContext'
+import { Link } from 'react-router-dom'
+import { Button, CardMedia, Card, CardContent, CardActions } from '@mui/material'
+import Typography from '@mui/material/Typography'
+import { useState } from 'react'
 import OutOfStock from '../OutOfStock/OutOfStock'
+import RelatedItems from '../RelatedItems/RelatedItems'
+import {Container} from '@mui/system'
 
 const ItemDetail = ({ item }) => {
 
@@ -36,6 +38,7 @@ const ItemDetail = ({ item }) => {
 
 
   return (
+    <Container>
 
     <Card sx={{ marginTop: 12, marginBottom: 15, padding: 10, display: 'flex', justifyContent: 'center' }} >
 
@@ -65,6 +68,8 @@ const ItemDetail = ({ item }) => {
       </Box>
 
     </Card>
+    <RelatedItems/>
+    </Container>
   )
 }
 

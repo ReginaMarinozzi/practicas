@@ -1,14 +1,14 @@
-import { useState, useEffect } from "react";
-import ItemList from "../ItemList/ItemList";
-import { useParams } from "react-router-dom";
-import Container from '@mui/material/Container';
-import Loader from "../Loader/Loader";
-import { db } from "../../firebase/config";
-import { collection, getDocs, query, where } from "firebase/firestore";
+import { useState, useEffect } from "react"
+import ItemList from "../ItemList/ItemList"
+import { useParams } from "react-router-dom"
+import {Container} from '@mui/system'
+import Loader from "../Loader/Loader"
+import { db } from "../../firebase/config"
+import { collection, getDocs, query, where } from "firebase/firestore"
 
 
 const ItemListContainer = () => {
-    const [productos, setProductos] = useState([]);
+    const [productos, setProductos] = useState([])
 
     const [loading, setLoading] = useState(true)
 
@@ -43,6 +43,6 @@ const ItemListContainer = () => {
         </Container>
 
     )
-};
+}
 
-export default ItemListContainer;
+export default ItemListContainer

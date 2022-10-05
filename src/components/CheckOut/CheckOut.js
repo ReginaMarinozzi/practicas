@@ -125,6 +125,7 @@ const Checkout = () => {
                                     name="nombre"
                                     type="nombre"
                                     label="Nombre y apellido"
+                                    
                                 /></Grid>
                             <Grid item md={12} >
                                 <Field sx={{ margin: 1 }}
