@@ -111,13 +111,11 @@ const Checkout = () => {
                         <Form >
                             <Grid item md={12} >
                                 <Field sx={{ margin: 1 }}
-                                      disabled={true}
-                                      component={TextField}
-                                      type="email"
-                                      name="email"
-                                      label="eMail"
-                                      value={user.email}
-
+                            
+                                    component={TextField}
+                                    type="email"
+                                    name="email"
+                                    label="eMail"
                                 />
 
                                 <Field sx={{ margin: 1 }}
@@ -125,15 +123,15 @@ const Checkout = () => {
                                     name="nombre"
                                     type="nombre"
                                     label="Nombre y apellido"
-                                    
-                                /></Grid>
+                                    />
+                            </Grid>
+
                             <Grid item md={12} >
                                 <Field sx={{ margin: 1 }}
                                     component={TextField}
                                     type="direccion"
                                     name="direccion"
                                     label="Direccion"
-
                                 />
 
                                 <Field sx={{ margin: 1 }}
@@ -141,8 +139,9 @@ const Checkout = () => {
                                     type="telefono"
                                     name="telefono"
                                     label="Telefono"
+                                />
+                                </Grid>
 
-                                /></Grid>
                             <Box sx={{ display: 'flex', flexFlow: 'column wrap', margin: 2 }}>
 
                                 <Button sx={{ margin: 1 }}

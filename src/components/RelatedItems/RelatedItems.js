@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react"
-import { useParams } from "react-router-dom"
 import { Container } from '@mui/system'
 import Loader from "../Loader/Loader"
 import { db } from "../../firebase/config"
@@ -7,19 +6,18 @@ import { collection, getDocs, query, where } from "firebase/firestore"
 import { useNavigate } from "react-router-dom"
 import { Typography, Card, CardMedia, CardContent, Grid } from "@mui/material"
 
-const RelatedItems = () => {
+const RelatedItems = ({categoria}) => {
+
     const [productos, setProductos] = useState([])
 
     const [loading, setLoading] = useState(true)
-
-    const { categoryId } = useParams()
 
     useEffect(() => {
         setLoading(true)
 
         const productosRef = collection(db, 'productos')
-        const q = categoryId
-            ? query(productosRef, where('categoria', '==', categoryId))
+        const q = categoria
+            ? query(productosRef, where('categoria', '==', categoria))
             : productosRef
 
         getDocs(q)
@@ -32,11 +30,11 @@ const RelatedItems = () => {
             }
             )
 
-    }, [categoryId])
+    }, [categoria])
 
     const navigate = useNavigate()
     const handleNavigation = (prodId) => {
-        navigate(`/detail/${prodId}`)
+        navigate(`/item/${prodId}`)
     }
 
     return (
@@ -66,4 +64,3 @@ const RelatedItems = () => {
 }
 
 export default RelatedItems
-
