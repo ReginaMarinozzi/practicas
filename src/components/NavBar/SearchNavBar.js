@@ -21,10 +21,6 @@ const SearchNavBar = () => {
     const [productos, setProductos] = useState([])
     const [loading, setLoading] = useState(true)
 
-    // const filterSearch = search.filter((item) => {
-    //     return item.toLowerCase().indexOf(query.toLowerCase()) !== -1;
-    // })
-
     useEffect(() => {
 
         setLoading(true)
@@ -36,7 +32,6 @@ const SearchNavBar = () => {
         getDocs(q)
             .then((resp) => {
                 const productosDB = resp.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
-                console.log(productosDB)
                 setProductos(productosDB)
             })
             .finally(() => {
