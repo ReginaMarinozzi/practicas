@@ -1,4 +1,4 @@
-import { Stack, Typography } from '@mui/material'
+import { Stack, Typography, Grid } from '@mui/material'
 import LocalShippingIcon from '@mui/icons-material/LocalShipping'
 import CreditCardIcon from '@mui/icons-material/CreditCard'
 import LockIcon from '@mui/icons-material/Lock'
@@ -8,6 +8,7 @@ const Header = () => {
   return (
 
     <Stack>
+
       <Stack
         justifyContent='center'
         height='80vh'
@@ -28,16 +29,14 @@ const Header = () => {
         </Typography>
       </Stack>
 
-      <Stack
-        direction='row'
-        alignItems='center'
-        justifyContent='space-evenly'
+      <Grid container
+        justifyContent='center'
         mt={10}
-        px={100}
+        spacing={1}
       >
-        <Stack
-          alignItems='center'
-          spacing={2}
+        <Grid item
+          md={2}
+          sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}
         >
           <LocalShippingIcon
             sx={{ fontSize: `100px`, color: '#9E9E9E' }}
@@ -47,10 +46,10 @@ const Header = () => {
           >
             Envíos a todo el país
           </Typography>
-        </Stack>
-        <Stack
-          alignItems='center'
-          spacing={2}
+        </Grid>
+        <Grid item
+          md={2}
+          sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}
         >
           <LockIcon
             sx={{ fontSize: `100px`, color: '#9E9E9E' }}
@@ -60,10 +59,10 @@ const Header = () => {
           >
             Comprá de forma segura
           </Typography>
-        </Stack>
-        <Stack
-          alignItems='center'
-          spacing={2}
+        </Grid>
+        <Grid item
+          md={2}
+          sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}
         >
           <CreditCardIcon
             sx={{ fontSize: `100px`, color: '#9E9E9E' }}
@@ -73,11 +72,11 @@ const Header = () => {
           >
             Pagá como quieras
           </Typography>
-        </Stack>
-
-      </Stack>
+        </Grid>
+      </Grid>
 
     </Stack>
+
   )
 }
 
