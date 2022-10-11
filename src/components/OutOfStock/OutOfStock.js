@@ -1,9 +1,9 @@
 import React from 'react'
-import { Box } from '@mui/system'
-import { CardMedia, Card, CardContent } from '@mui/material'
+import { CardMedia, Card, Stack } from '@mui/material'
 import Typography from '@mui/material/Typography'
 import { useWishlistContext } from '../../context/WishlistContext'
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
+import FavoriteIcon from '@mui/icons-material/Favorite'
+import RelatedItems from '../RelatedItems/RelatedItems'
 
 const OutOfStock = ({ item }) => {
   const { addToWishlist, isInWishlist } = useWishlistContext()
@@ -19,31 +19,79 @@ const OutOfStock = ({ item }) => {
     addToWishlist(itemToWishlist)
   }
   return (
-    <Card sx={{ marginTop: 12, marginBottom: 15, padding: 10, display: 'flex', justifyContent: 'center' }} >
+    <Stack
+      m={15}
+    >
+      <Card
+        elevation={5}
+      >
+        <Stack
+          direction="row"
+        >
+          <CardMedia
+            sx={{ my: 5, ml: 5, maxWidth: 450 }}
+            component="img"
+            image={item.img}
+            alt={item.descripcion}
+          />
 
-      <CardMedia component="img" image={item.img} alt={item.descripcion} sx={{ borderRadius: `10px` }} />
+          <Stack
+            justifyContent='center'
+            p={5}
+          >
+            <Typography
+              variant="h4"
+              component='h4'
+              textTransform='capitalize'
+              fontWeight='600'
+              my={1}
+            >
+              {item.nombre}
+            </Typography>
+            <Typography
+              variant="body1"
+              component='p'
+              my={1}
+            >
+              {item.descripcion}
+            </Typography>
+            <Typography
+              variant="h5"
+              component='h5'
+              my={1}
+            >
+              Precio $ {item.precio}
+            </Typography>
 
-      <Box sx={{ marginTop: 3, padding: 5, display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
-
-        <CardContent align="justify">
-          <Typography align="center" variant="h4" component='h4' >{item.nombre}</Typography>
-          <Typography variant="body1" component='p' align="justify">{item.descripcion}</Typography>
-          <Typography variant="h5" component='h5' align="center" sx={{ padding: 2 }}>Precio $ {item.precio}</Typography>
-          {isInWishlist(item.id)
-              ? <Typography> Este producto ya esta en sus favoritos </Typography>
-              : <FavoriteBorderIcon onClick={handleWishlist}/>
+            {isInWishlist(item.id)
+              ? <Typography
+                variant="body1"
+                component='p'
+              >
+                Item agregago a wishlist!
+              </Typography>
+              : <FavoriteIcon onClick={handleWishlist} />
             }
-        </CardContent>
+            <Stack
+              alignItems='center'
+            >
+              <Typography
+                color='#bdbdbd'
+                variant="h5"
+                component='p'
+              >
+                Sin Stock
+              </Typography>
+            </Stack>
+          </Stack>
+        </Stack>
+      </Card>
 
-        <Box variant='outline' sx={{ backgroundColor: 'grey' }}>
-          <Typography variant="h5" component='h5' >
-            Sin Stock
-          </Typography>
-        </Box>
+      <RelatedItems categoria={item.categoria} />
 
-      </Box>
+    </Stack>
 
-    </Card>
+
   )
 }
 

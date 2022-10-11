@@ -1,8 +1,8 @@
-import { Box, Button, Typography, Container, Grid } from '@mui/material';
-import { Formik, Form, Field } from 'formik';
-import { TextField } from 'formik-mui';
-import * as React from 'react';
-import * as Yup from 'yup';
+import { Button, Typography, Grid, Stack } from '@mui/material'
+import { Formik, Form, Field } from 'formik'
+import { TextField } from 'formik-mui'
+import * as React from 'react'
+import * as Yup from 'yup'
 import { useState } from "react"
 import { Navigate } from "react-router-dom"
 import { useCartContext } from "../../context/CartContext"
@@ -33,15 +33,13 @@ const Checkout = () => {
     const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-])|(\\([0-9]{2,3}\\)[ \\-])|([0-9]{2,4})[ \\-])?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
 
     return (
+
         <Formik
             initialValues={{ nombre: '', direccion: '', email: '', telefono: '' }}
             validationSchema={Yup.object({
                 nombre: Yup.string()
                     .required('Requerido'),
                 direccion: Yup.string()
-                    .required('Requerido'),
-                email: Yup.string()
-                    .email('eMail incorrecto')
                     .required('Requerido'),
                 telefono: Yup.string()
                     .matches(phoneRegExp, 'Telefono incorrecto')
@@ -103,64 +101,106 @@ const Checkout = () => {
         >
             {({ submitForm, isSubmitting }) => (
 
-                <Container sx={{ marginTop: 15 }}>
-                    <Typography sx={{ padding: 5 }} variant="h4" component='h5'>Checkout</Typography>
+                <Stack
+                    m={20}
+                    alignItems="center"
+                    height='100vh'
+                >
+                    <Typography
+                        variant="h4"
+                        component='h5'
+                        mb={4}
+                    >
+                        Checkout
+                    </Typography>
 
-
-                    <Grid container my={4} rowSpacing={2} columnSpacing={1} >
-                        <Form >
-                            <Grid item md={12} >
-                                <Field sx={{ margin: 1 }}
-                            
-                                    component={TextField}
-                                    type="email"
-                                    name="email"
-                                    label="eMail"
-                                />
-
-                                <Field sx={{ margin: 1 }}
+                    <Form
+                    >
+                        <Grid container
+                            justifyContent="center"
+                            alignItems="center"
+                            spacing={2}
+                        >
+                            <Grid item
+                                md={6}
+                                display='flex'
+                                justifyContent="center"
+                                alignItems="center"
+                            >
+                                <Field
+                                    fullWidth
                                     component={TextField}
                                     name="nombre"
                                     type="nombre"
-                                    label="Nombre y apellido"
-                                    />
+                                    label="Nombre"
+                                />
                             </Grid>
-
-                            <Grid item md={12} >
-                                <Field sx={{ margin: 1 }}
+                            <Grid item
+                                md={6}
+                                display='flex'
+                                justifyContent="center"
+                                alignItems="center"
+                            >
+                                <Field
+                                    fullWidth
+                                    component={TextField}
+                                    name="apellido"
+                                    type="apellido"
+                                    label="Apellido"
+                                />
+                            </Grid>
+                            <Grid item
+                                md={6}
+                                display='flex'
+                                justifyContent="center"
+                                alignItems="center"
+                            >
+                                <Field
+                                    fullWidth
                                     component={TextField}
                                     type="direccion"
                                     name="direccion"
                                     label="Direccion"
                                 />
-
-                                <Field sx={{ margin: 1 }}
+                            </Grid>
+                            <Grid item
+                                md={6}
+                                display='flex'
+                                justifyContent="center"
+                                alignItems="center"
+                            >
+                                <Field
+                                    fullWidth
                                     component={TextField}
                                     type="telefono"
                                     name="telefono"
                                     label="Telefono"
                                 />
-                                </Grid>
+                            </Grid>
 
-                            <Box sx={{ display: 'flex', flexFlow: 'column wrap', margin: 2 }}>
+                        </Grid>
 
-                                <Button sx={{ margin: 1 }}
-                                    variant="contained"
-                                    color="warning"
-                                    disabled={isSubmitting}
-                                    onClick={submitForm}
-                                    size='small'
-                                >
-                                    Enviar
-                                </Button>
-                            </Box>
-                        </Form>
-                    </Grid>
+                        <Stack
+                        >
+                            <Button
+                                variant="contained"
+                                color="warning"
+                                disabled={isSubmitting}
+                                onClick={submitForm}
+                                sx={{ margin: 3 }}
+                                size='small'
+                            >
+                                Enviar
+                            </Button>
+                        </Stack>
 
-                </Container>
+                    </Form>
+                </Stack>
             )}
+
         </Formik>
-    );
+
+    )
 }
 
 export default Checkout

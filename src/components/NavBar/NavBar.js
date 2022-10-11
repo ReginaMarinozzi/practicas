@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { AppBar, Box, Typography, Toolbar, IconButton, Menu, Container, Avatar, Button, Tooltip, MenuItem } from '@mui/material';
+import { AppBar, Box, Typography, Toolbar, IconButton, Menu, Container, Avatar, Button, Tooltip, MenuItem } from '@mui/material'
 import MenuIcon from '@mui/icons-material/Menu'
 import AdbIcon from '@mui/icons-material/Adb'
 import ShoppingCart from './CartWidget.js'
@@ -24,15 +24,15 @@ const pages = [
 
     {
         categoria: 'Skincare',
-        link: "/productos/skincare"
+        link: "productos/skincare"
     },
     {
         categoria: 'Fragance',
-        link: '/productos/fragance'
+        link: "productos/fragance"
     },
     {
         categoria: 'Makeup',
-        link: '/productos/makeup'
+        link: "productos/makeup"
     }
 ]
 
@@ -98,10 +98,11 @@ const ResponsiveAppBar = () => {
     }
 
     const handleCloseUserMenu = () => {
-        setAnchorElUser(null);
+        setAnchorElUser(null)
     }
 
     const navigate = useNavigate()
+
     const [search, setSearch] = useState("")
 
     const handleSubmit = (e) => {
@@ -109,17 +110,14 @@ const ResponsiveAppBar = () => {
         navigate(`/search?name=${search}`)
     }
 
-    const [anchorEl, setAnchorEl] = React.useState(null);
-    const open = Boolean(anchorEl)
-    const handleClick = (event) => {
-        setAnchorEl(event.currentTarget)
-    };
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
     return (
-        <AppBar position="fixed" sx={{ bgcolor: '#e1aac1' }}>
-            <Container maxWidth="xl">
+
+        <AppBar position="fixed"
+            sx={{ bgcolor: '#e1aac1' }}
+        >
+            <Container
+                maxWidth="xl"
+            >
                 <Toolbar disableGutters>
 
                     <Typography
@@ -138,7 +136,9 @@ const ResponsiveAppBar = () => {
                         REGINA STORE
                     </Typography>
 
-                    <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+                    <Box
+                        sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}
+                    >
                         <IconButton
                             size="large"
                             aria-label="account of current user"
@@ -167,15 +167,19 @@ const ResponsiveAppBar = () => {
                                 display: { xs: 'block', md: 'none' },
                             }}
                         >
-
                             {pages.map((page, index) => (
-                                <MenuItem key={index} component={Link} to={page.link}>
+                                <MenuItem component={Link} to={page.link}
+                                    key={index}
+                                    onClick={handleCloseNavMenu}
+                                >
                                     {page.categoria}
                                 </MenuItem>
                             ))}
                         </Menu>
                     </Box>
-                    <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
+                    <AdbIcon
+                        sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }}
+                    />
                     <Typography
                         component={Link} to='/'
                         variant="h5"
@@ -192,45 +196,21 @@ const ResponsiveAppBar = () => {
                         }}
                     >
                         R STORE
-
                     </Typography>
+
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                         {pages.map((page, index) => (
-
                             <Button
+                                component={Link}
+                                to={page.link}
                                 key={index}
-                                component={Link} to={page.link}
-                                id='resources-button'
-                                aria-controls={open ? 'resources-menu' : undefined}
-                                aria-haspopup='true'
-                                aria-expanded={open ? 'true' : undefined}
-                                onClick={handleClick}
+                                onClick={handleCloseNavMenu}
                                 sx={{ my: 2, color: 'white', display: 'block' }}
                             >
                                 {page.categoria}
                             </Button>
-
                         ))}
                     </Box>
-                    <Menu
-                        id='resources-menu'
-                        // component={Link} to={pages.link}
-                        anchorEl={anchorEl}
-                        open={open}
-                        onClose={handleClose}
-                        anchorOrigin={{
-                            vertical: 'bottom',
-                            horizontal: 'right'
-                        }}
-                        transformOrigin={{
-                            vertical: 'top',
-                            horizontal: 'right'
-                        }}
-                        MenuListProps={{
-                            'aria-labelledby': 'basic-button',
-                        }}>
-                        <MenuItem onClick={handleClose}>subcategoria</MenuItem>
-                    </Menu>
 
                     <Search sx={{ marginRight: 1 }}>
                         <form onSubmit={handleSubmit}>
@@ -242,7 +222,6 @@ const ResponsiveAppBar = () => {
                                 id="message"
                                 name="message"
                             />
-
                             <Button
                                 variant="outline"
                                 type="submit"
@@ -253,8 +232,9 @@ const ResponsiveAppBar = () => {
                         </form>
                     </Search>
 
-                    <Box sx={{ flexGrow: 0 }}>
-
+                    <Box
+                        sx={{ flexGrow: 0 }}
+                    >
                         {user ?
                             <Button
                                 onClick={handleLogout}
@@ -271,15 +251,24 @@ const ResponsiveAppBar = () => {
                                 Acceder
                             </Button>
                         }
-
                     </Box>
 
                     <ShoppingCart />
 
-                    <Box sx={{ flexGrow: 0 }}>
-                        <Tooltip title="Open settings">
-                            <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                    <Box
+                        sx={{ flexGrow: 0 }}
+                    >
+                        <Tooltip
+                            title="Open settings"
+                        >
+                            <IconButton
+                                onClick={handleOpenUserMenu}
+                                sx={{ p: 0 }}
+                            >
+                                <Avatar
+                                    alt="Remy Sharp"
+                                    src="/static/images/avatar/2.jpg"
+                                />
                             </IconButton>
                         </Tooltip>
                         <Menu
@@ -305,18 +294,22 @@ const ResponsiveAppBar = () => {
                                     key={index}
                                     onClick={handleCloseNavMenu}
                                 >
-                                    <Typography textAlign="center" sx={{ my: 2, color: 'black' }}> {setting.nombre} </Typography>
-
+                                    <Typography
+                                        variant='h6'
+                                        textAlign="center"
+                                        sx={{ my: 2, color: 'black' }}
+                                    >
+                                        {setting.nombre}
+                                    </Typography>
                                 </MenuItem>
                             ))}
                         </Menu>
-
-
                     </Box>
                 </Toolbar>
             </Container>
         </AppBar>
+
     )
 }
-export default ResponsiveAppBar
 
+export default ResponsiveAppBar

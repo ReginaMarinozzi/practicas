@@ -1,16 +1,15 @@
 import { useState, useEffect } from "react"
-import { Container } from '@mui/system'
 import Loader from "../Loader/Loader"
 import { db } from "../../firebase/config"
 import { collection, getDocs, query, where } from "firebase/firestore"
-import { useNavigate } from "react-router-dom"
-import { Typography, Card, CardMedia, CardContent, Grid } from "@mui/material"
+import { useNavigate, useParams } from "react-router-dom"
+import { Typography, Box, Grid, Stack, Card } from "@mui/material"
 
-const RelatedItems = ({categoria}) => {
+const RelatedItems = ({ categoria }) => {
 
     const [productos, setProductos] = useState([])
-
     const [loading, setLoading] = useState(true)
+    const { itemId } = useParams()
 
     useEffect(() => {
         setLoading(true)
@@ -22,15 +21,17 @@ const RelatedItems = ({categoria}) => {
 
         getDocs(q)
             .then((resp) => {
-                const productosDB = resp.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
+                let productosDB = resp.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
+                productosDB = productosDB.filter((producto) => {
+                    return producto.id !== itemId;
+                });
                 setProductos(productosDB)
             })
             .finally(() => {
                 setLoading(false)
-            }
-            )
+            })
 
-    }, [categoria])
+    }, [categoria, itemId])
 
     const navigate = useNavigate()
     const handleNavigation = (prodId) => {
@@ -38,28 +39,55 @@ const RelatedItems = ({categoria}) => {
     }
 
     return (
-        <Container sx={{ marginTop: 10 }}>
+        <Stack
+            mt={10}
+        >
             {loading
                 ? <Loader />
-                : <Container productos={productos} sx={{ marginTop: 5, marginBottom: 15 }}>
-                    <Typography variant="h5" component='h5' align="center">
+                : <Stack productos={productos}>
+                    <Typography
+                        variant="h5"
+                        component='h6'
+                        align="center"
+                    >
                         Productos Relacionados
                     </Typography>
-                    <Container>
-                        <Grid container my={4} spacing={4}>
-                            {productos.map((prod) => {
-                                return <Grid item md={4} key={prod.id}>
-                                    <Card>
-                                    <CardContent>{prod.nombre}</CardContent>
-                                    <CardMedia onClick={() => handleNavigation(prod.id)} component="img" image={prod.img} alt={prod.descripcion} sx={{ borderRadius: `10px` }} />
-                                    </Card>
-                                </Grid>
-                            })}
-                        </Grid>
-                    </Container>
-                </Container>
+                    <Grid container
+                        spacing={4}
+                    >
+                        {productos.map((prod) => {
+                            return <Grid item
+                                md={3}
+                                key={prod.id}
+                            >
+                                <Card
+                                    elevation={5}
+                                    onClick={handleNavigation}
+                                    sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
+                                >
+                                    <Typography
+                                        variant="h6"
+                                        component='p'
+                                        align="center"
+                                        textTransform='capitalize'
+                                    >
+                                        {prod.nombre}
+                                    </Typography>
+                                    <Box
+                                        sx={{ paddingBottom: 5 }}
+                                        maxWidth="60%"
+                                        component='img'
+                                        src={prod.img}
+                                        alt={prod.descripcion}
+                                    />
+                                </Card>
+
+                            </Grid>
+                        })}
+                    </Grid>
+                </Stack>
             }
-        </Container>
+        </Stack>
     )
 }
 
